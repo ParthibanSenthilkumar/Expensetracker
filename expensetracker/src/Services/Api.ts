@@ -7,7 +7,7 @@ export const getuserdetails= async ( data:FormValues,uid:string )=>{
     try{
         let res= await axios.put(`${BASEURL}/${uid}/Expense_Regsiter.json`,data)
         return res.data
-    }
+    } 
     catch(error){
         if(error instanceof Error){
             console.log(error.message)

@@ -1,11 +1,15 @@
 
+import { BrowserRouter } from 'react-router-dom'
 import './App.css'
-import Register from './Pages/Register'
+import Allroutes from './Routers/Allroutes'
+
 
 function App() {
   return (
     <>
-      <Register />
+    <BrowserRouter>
+      <Allroutes />
+    </BrowserRouter>
     </>
   )
 }
