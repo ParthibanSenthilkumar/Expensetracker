@@ -1,12 +1,11 @@
 import axios from "axios"
 import type { FormValues } from "../Types/Registertype"
 
-
 const BASEURL="https://task-668b3-default-rtdb.firebaseio.com"
 
-export const getuserdetails= async ( data:FormValues )=>{
+export const getuserdetails= async ( data:FormValues,uid:string )=>{
     try{
-        let res= await axios.post(`${BASEURL}/Expense_Regsiter.json`,data)
+        let res= await axios.put(`${BASEURL}/${uid}/Expense_Regsiter.json`,data)
         return res.data
     }
     catch(error){

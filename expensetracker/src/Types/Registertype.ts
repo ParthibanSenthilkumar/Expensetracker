@@ -3,6 +3,6 @@ export interface FormValues{
     email:string,
     password:string,
     phoneNumber:string,
-    uid:string,
-    createAt:string
+    uid?:string,
+    createAt?:string
 }

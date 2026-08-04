@@ -16,9 +16,9 @@ const Register = () => {
              let uid=registerAuth.user.uid
              await getuserdetails({
                 ...data,
-                uid,
                 createAt:new Date().toISOString()
-             })
+             },uid
+            )
              reset()
         }
         catch(err){
