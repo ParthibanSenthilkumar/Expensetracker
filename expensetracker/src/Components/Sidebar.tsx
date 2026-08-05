@@ -8,13 +8,11 @@ import { FaWallet } from "react-icons/fa";
 import { IoNotifications } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
 
-
-
 const Sidebar = () => {
   return (
     <>
-    <div className="wrapper flex items-stretch h-screen">
-        <div className="sidebar w-[240px] p-3 bg-[#e2eafc]">
+    <div className="wrapper flex items-stretch min-h-screen">
+        <div className="sidebar min-h-screen w-[240px] p-3 bg-[#e2eafc]">
             <Link to='' className="text-xl font-bold py-3  mb-3 block text-[#6366f1] inline-flex items-center gap-2.5  " ><span className="bg-violet-300 p-2 rounded-md"> <FaWallet className="text-white text-base"  /></span> Expense Tracker </Link>
             <Link to='' className="nav_link" > <span><MdSpaceDashboard /></span> Dashboard</Link>
             <Link to='transactions' className="nav_link"> <span><AiOutlineTransaction /></span> Transactions</Link>

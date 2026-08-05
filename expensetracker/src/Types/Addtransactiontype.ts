@@ -2,5 +2,6 @@ export interface AddTransaction{
   amount:string,
   category:string,
   description:string,
-  date:string
+  date:string,
+  transType: "Income" | "Expense"
 }
