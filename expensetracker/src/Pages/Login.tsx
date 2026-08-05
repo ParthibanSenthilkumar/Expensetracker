@@ -28,13 +28,13 @@ const Login = () => {
   return (
     <>
       <section className="mt-20 ">
-        <div className="container-lg max-w- mx-auto">
-          <div className="shadow-custom1 max-w-150 mx-auto p-8 rounded">
+        <div className="container-lg">
+          <div className="shadow-custom1 max-w-[600px] mx-auto p-8 rounded">
             <div className="heading">
               <h2 className="section-title  mb-2 text-[#393939] "> Login </h2>
-              <p className="text-[14px] font-medium text-gray-500 mb-6">
-                Welcome to Expense Tracker{" "}
-              </p>
+                <p className="text-sm font-medium text-gray-500 mb-6">
+                    Welcome to Expense Tracker{" "}
+                </p>
             </div>
             <form onSubmit={handleSubmit(formSubmit)}>
               <div className="form_item my-5">
@@ -46,7 +46,7 @@ const Login = () => {
                   })}
                 />
                 {errors.email && (
-                  <p className="text-red-400 capitalize text-sm mt-2">
+                  <p className="errors">
                     {" "}
                     {errors.email?.message}{" "}
                   </p>
@@ -61,7 +61,7 @@ const Login = () => {
                   })}
                 />
                 {errors.password && (
-                  <p className="text-red-400 capitalize  text-sm mt-2">
+                  <p className="errors">
                     {errors.password?.message}*{" "}
                   </p>
                 )}
