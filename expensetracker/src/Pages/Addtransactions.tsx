@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import type { AddTransaction } from "../Types/Addtransactiontype";
 import { Addtransaction } from "../Services/Api";
+import Loader from "../Components/Loader";
+import { errorToast, successToast } from "../Components/Toaster";
 
 const categoryList = {
   Income: ["Salary", "Business", "Freelancing", "Investment", "Bonus"],
@@ -14,6 +16,7 @@ const Addtransactions = () => {
     date: "",
     transType: "Expense",
   });
+  const [loading, setloading] = useState(false);
   const changeType = (type: "Income" | "Expense") => {
     settransData((prev) => ({
       ...prev,
@@ -35,23 +38,40 @@ const Addtransactions = () => {
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (
-      !transData.amount.trim() ||
-      !transData.category.trim() ||
-      !transData.description.trim() ||
-      !transData.date.trim()
-    ) {
-      return alert("Fill all fields");
+    try {
+      setloading(true);
+      if (
+        !transData.amount.trim() ||
+        !transData.category.trim() ||
+        !transData.description.trim() ||
+        !transData.date.trim()
+      ) {
+        return errorToast("Fill All Feilds");
+      }
+      await Addtransaction(transData);
+      settransData({
+        amount: "",
+        category: "",
+        description: "",
+        date: "",
+        transType: "Expense",
+      });
+      successToast("Added Successfully");
+    } catch (err) {
+      if (err instanceof Error) {
+        errorToast(err.message);
+      }
+    } finally {
+      setloading(false);
     }
-    await Addtransaction(transData);
-    settransData({
-      amount: "",
-      category: "",
-      description: "",
-      date: "",
-      transType: "Expense",
-    });
   };
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-full min-w-full">
+        <Loader />
+      </div>
+    );
+  }
   return (
     <section className="mt-5">
       <div className="shadow-custom1 max-w-lg mx-auto bg-white rounded-xl  p-8">
@@ -145,10 +165,7 @@ const Addtransactions = () => {
               className="w-full border border-gray-300 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-          <button
-            type="submit"
-            className="sub_btn transition duration-300"
-          >
+          <button type="submit" className="sub_btn transition duration-300">
             Add Transaction
           </button>
         </form>

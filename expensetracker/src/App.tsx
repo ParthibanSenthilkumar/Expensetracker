@@ -1,17 +1,17 @@
-
-import { BrowserRouter } from 'react-router-dom'
-import './App.css'
-import Allroutes from './Routers/Allroutes'
-
+import { BrowserRouter } from "react-router-dom";
+import "./App.css";
+import Allroutes from "./Routers/Allroutes";
+import AppToaster from "./Components/Toaster";
 
 function App() {
   return (
     <>
-    <BrowserRouter>
-      <Allroutes />
-    </BrowserRouter>
+      <BrowserRouter>
+        <Allroutes />
+        <AppToaster />
+      </BrowserRouter>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

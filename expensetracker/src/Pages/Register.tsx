@@ -4,8 +4,12 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { getuserdetails } from "../Services/Api";
 import { auth } from "../Services/Firebase";
 import { Link } from "react-router-dom";
+import { errorToast, successToast } from "../Components/Toaster";
+import Loader from "../Components/Loader";
+import { useState } from "react";
 
 const Register = () => {
+  const [loading, setloading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -14,6 +18,7 @@ const Register = () => {
   } = useForm<FormValues>();
   const FormSubmit = async (data: FormValues) => {
     try {
+      setloading(true);
       let registerAuth = await createUserWithEmailAndPassword(
         auth,
         data.email,
@@ -28,12 +33,23 @@ const Register = () => {
         uid,
       );
       reset();
+      successToast("Register Successfully");
     } catch (err) {
       if (err instanceof Error) {
+        errorToast(err.message);
         console.log(err.message);
       }
+    } finally {
+      setloading(false);
     }
   };
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-full min-w-full">
+        <Loader />
+      </div>
+    );
+  }
   return (
     <>
       <section className="my-20">
