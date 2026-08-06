@@ -30,3 +30,17 @@ export const Addtransaction = async (data: AddTransaction) => {
     throw new Error();
   }
 };
+
+export const getTransactions = async ( fetchData:AddTransaction ) =>{
+  try{
+    let res= await axios.get(`${BASEURL}/Expense_addTransactions.json`);
+    return res.data
+  }
+  catch(err){
+    if(err instanceof Error){
+      errorToast(err.message)
+      console.log(err.message)
+    }
+    throw new Error
+  }
+}
