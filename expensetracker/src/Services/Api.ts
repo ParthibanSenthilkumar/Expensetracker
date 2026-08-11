@@ -3,6 +3,7 @@ import type { FormValues } from "../Types/Registertype";
 import type { AddTransaction } from "../Types/Addtransactiontype";
 import { errorToast } from "../Components/Toaster";
 
+
 const BASEURL = "https://task-668b3-default-rtdb.firebaseio.com";
 
 export const getuserdetails = async (data: FormValues, uid: string) => {
@@ -31,10 +32,18 @@ export const Addtransaction = async (data: AddTransaction) => {
   }
 };
 
-export const getTransactions = async ( fetchData:AddTransaction ) =>{
+export const getTransactions = async():Promise<AddTransaction[]> =>{
   try{
     let res= await axios.get(`${BASEURL}/Expense_addTransactions.json`);
-    return res.data
+    if (!res.data) {
+      return [];
+    }
+    let resarry:AddTransaction[]=Object.keys(res.data).map((key)=>({
+      id:key,
+      ...res.data[key]
+    }
+    ))
+    return resarry
   }
   catch(err){
     if(err instanceof Error){
@@ -42,5 +51,47 @@ export const getTransactions = async ( fetchData:AddTransaction ) =>{
       console.log(err.message)
     }
     throw new Error
+  }
+}
+
+export const Editdata= async (data:AddTransaction,id:string) => {
+  try{
+    let res= await axios.patch(`${BASEURL}/Expense_addTransactions/${id}.json`,data)
+    return res.data
+  }
+  catch(err){
+    if(err instanceof Error){
+      errorToast(err.message)
+      console.log(err.message)
+      throw new Error
+    }
+  }
+}
+
+export const deletedata = async(id:string) =>{
+  try{
+    let res=await axios.delete(`${BASEURL}/Expense_addTransactions/${id}.json`)
+    return res.data
+  }
+  catch(err){
+    if(err instanceof Error){
+      errorToast(err.message)
+      console.log(err.message)
+      throw new Error
+    }
+  }
+}
+
+export const getTransDetails=async (id:string)=>{
+  try{
+    let res=await axios.get(`${BASEURL}/Expense_addTransactions/${id}.json`)
+    return res.data
+  }
+  catch(err){
+    if(err instanceof Error){
+      errorToast(err.message)
+      console.log(err.message)
+      throw new Error
+    }
   }
 }

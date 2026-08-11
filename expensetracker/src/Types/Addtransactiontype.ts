@@ -1,4 +1,5 @@
 export interface AddTransaction{
+  id?:string
   amount:string,
   category:string,
   description:string,

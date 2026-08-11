@@ -7,6 +7,7 @@ import Transactions from "../Pages/Transactions";
 import Addtransactions from "../Pages/Addtransactions";
 import Reports from "../Pages/Reports";
 import Profile from "../Pages/Profile";
+import Transdetails from "../Pages/Transdetails";
 
 const Allroutes = () => {
   return (
@@ -18,6 +19,7 @@ const Allroutes = () => {
         <Route path="/dashboard" element={<Sidebar />}>
           <Route index element={<Dashboard />} />
           <Route path="transactions" element={<Transactions />} />
+          <Route path="trans-details/:id" element={ <Transdetails /> } />
           <Route path="addTransaction" element={<Addtransactions />} />
           <Route path="reports" element={<Reports />} />
           <Route path="profile" element={<Profile />} />

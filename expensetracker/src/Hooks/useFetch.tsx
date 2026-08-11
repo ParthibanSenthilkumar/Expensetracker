@@ -3,12 +3,12 @@ import { errorToast } from '../Components/Toaster'
 
 
 function useFetch<t>(fetchData:()=>Promise<t>){
-    let[data,setdata]=useState<t | null >( null)
+    let[data,setdata]=useState<t>()
     let[loading,setloading]=useState<boolean>(false)
     let [error,seterror]=useState<string>("")
 
 useEffect(()=>{
-   
+
     let fetch= async ()=>{
         try{
             setloading(true)
@@ -30,7 +30,6 @@ useEffect(()=>{
 },[fetchData])
 return {data,loading,error}
 }
-
 
 export default useFetch
 
