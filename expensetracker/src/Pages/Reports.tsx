@@ -1,4 +1,5 @@
 
+import { useState } from "react"
 import Loader from "../Components/Loader"
 import { errorToast } from "../Components/Toaster"
 import useFetch from "../Hooks/useFetch"
@@ -7,16 +8,18 @@ import type { AddTransaction } from "../Types/Addtransactiontype"
 
 
 const Reports = () => {
-  let {data,loading,error}=useFetch<AddTransaction[]>(getTransactions)
+  const {data,loading,error}=useFetch<AddTransaction[]>(getTransactions)
+  const [filterType,setFilterTYpe]= useState("All")
+ 
 
-  const incomeFilter=data?.filter((item)=>item.transType === "Income")
-  console.log(incomeFilter,"incomeFilter")
+const incomeFilter=data?.filter((item)=>item.transType === "Income")
+console.log(incomeFilter,"incomeFilter")
 
-  const totalIncome=incomeFilter?.reduce((sum,item)=> sum + Number(item?.amount),0)
-  console.log(totalIncome,"totalIncome");
-    
-  const expenseFilter=data?.filter((item)=>item.transType === "Expense")
-  console.log(expenseFilter,"expenseFilter")
+ const expenseFilter=data?.filter((item)=>item.transType === "Expense")
+ console.log(expenseFilter,"expenseFilter")
+
+  const totalIncome=incomeFilter?.reduce((sum,item)=>sum + Number(item?.amount),0)
+  console.log(totalIncome,"totalExpense");
 
   const totalExpense=expenseFilter?.reduce((sum,item)=>sum + Number(item?.amount),0)
   console.log(totalExpense,"totalExpense");
@@ -35,8 +38,18 @@ const Reports = () => {
     return sum
   },{} as Record<string,number>)
   console.log(categoriesIncome);
-   
 
+
+  let filteredData = data ?? []
+
+    if (filterType === "Income") {
+      filteredData = incomeFilter ?? []
+    }
+
+    if (filterType === "Expense") {
+      filteredData = expenseFilter ?? []
+    }
+  
 
   if(loading){
     return <Loader/>
@@ -48,6 +61,50 @@ const Reports = () => {
 
   return (
     <>
+    <div className="ccard flex items-center justify-between gap-2.5">
+      <div className="card p-5 shadow rounded-lg ">
+        <h3 className="text-base text-gray-400">Total Balance</h3>
+        <span className="text-2xl font-bold text-gray-950">{totalBalance}</span>
+      </div>
+      <div className="card p-5 shadow rounded-lg ">
+        <h3 className="text-base text-gray-400">Total Income</h3>
+        <span className="text-2xl font-bold text-gray-950">{totalIncome}</span>
+      </div>
+      <div className="card p-5 shadow rounded-lg ">
+        <h3 className="text-base text-gray-400">Total Balance</h3>
+        <span className="text-2xl font-bold text-gray-950">{totalExpense}</span>
+      </div>
+    </div>
+
+
+    {Object.entries(categoriesIncome ?? {} ).map(([category,amount])=>{
+          const precentage=(amount/( totalIncome  || 1 ))*100
+          return(
+          <div key={category}>
+          <h5>{category}</h5>
+          <p>{amount }</p>
+          <p>{precentage.toFixed(2)}%</p>
+        </div>
+          )
+        })}
+
+{Object.entries(categoriesExpense ?? {}).map(([category, amount]) =>{
+  const precentage=(amount/(totalExpense||1))*100
+return(
+  <div key={category}>
+    <h5>{category}</h5>
+    <p>{amount }</p>
+    <p>{precentage.toFixed(2)}%</p>
+  </div>
+)
+} )}
+      <button onClick={()=>setFilterTYpe("All")}>
+      All
+      </button>
+      <button onClick={()=>setFilterTYpe("Income")}>
+      income
+      </button>
+      <button onClick={()=>setFilterTYpe("Expense")}>Expense </button>
       <table>
         <thead>
           <tr>
@@ -59,8 +116,9 @@ const Reports = () => {
           </tr>
         </thead>
         <tbody>
-          {data && data?.length > 0 ?(
-            data.map((translist,index)=>(
+        
+          {filteredData && filteredData?.length > 0 ?(
+            filteredData.map((translist,index)=>(
               <tr key={translist.id}>
                 <td>{index + 1}</td>
                 <td> {translist.amount} </td>
@@ -75,18 +133,7 @@ const Reports = () => {
           )}
         </tbody>
       </table>
-{Object.entries(categoriesIncome ?? {}).map(([category, amount]) => (
-  <div key={category}>
-    <h5>{category}</h5>
-    <p>{amount }</p>
-  </div>
-))}
-{Object.entries(categoriesExpense ?? {}).map(([category, amount]) => (
-  <div key={category}>
-    <h5>{category}</h5>
-    <p>{amount }</p>
-  </div>
-))}
+        
 
     </>
   )
