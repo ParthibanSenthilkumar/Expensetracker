@@ -11,7 +11,7 @@ const Transactions = () => {
   let navigate = useNavigate();
 
   const handleEdit = (id:string) => {
-    navigate(`/trans-details/${id}`);
+    navigate(`/dashboard/trans-details/${id}`);
   };
 
   const handledelete = async (id: string) => {
@@ -41,7 +41,7 @@ const Transactions = () => {
         </thead>
         <tbody>
           {data?.map((datalist, index) => (
-            <tr className="border-b border-b-gray-400 border-solid">
+            <tr key={datalist.id} className="border-b border-b-gray-400 border-solid">
               <td className="p-3">{index + 1}</td>
               <td className="p-3">{datalist.amount}</td>
               <td className="p-3">{datalist.category}</td>
