@@ -5,6 +5,8 @@ import { errorToast } from "../Components/Toaster"
 import useFetch from "../Hooks/useFetch"
 import { getTransactions } from "../Services/Api"
 import type { AddTransaction } from "../Types/Addtransactiontype"
+import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts"
+import SummaryCard from "../Components/Reports-compo/SummaryCard"
 
 
 const Reports = () => {
@@ -18,10 +20,10 @@ console.log(incomeFilter,"incomeFilter")
  const expenseFilter=data?.filter((item)=>item.transType === "Expense")
  console.log(expenseFilter,"expenseFilter")
 
-  const totalIncome=incomeFilter?.reduce((sum,item)=>sum + Number(item?.amount),0)
+  const totalIncome=incomeFilter?.reduce((sum,item)=>sum + Number(item?.amount),0) ?? 0
   console.log(totalIncome,"totalExpense");
 
-  const totalExpense=expenseFilter?.reduce((sum,item)=>sum + Number(item?.amount),0)
+  const totalExpense=expenseFilter?.reduce((sum,item)=>sum + Number(item?.amount),0) ?? 0
   console.log(totalExpense,"totalExpense");
    
   const totalBalance= (totalIncome || 0 ) - (totalExpense || 0)
@@ -33,6 +35,11 @@ console.log(incomeFilter,"incomeFilter")
   },{} as Record<string, number> )
   console.log(categoriesExpense);
   
+  const expenseChartData = Object.entries(categoriesExpense ?? {}).map(([category,amount])=>({
+    Name:category,
+    value:amount,
+  }))
+
   const categoriesIncome=incomeFilter?.reduce((sum,item)=>{
     sum[item.category]=(sum[item.category] || 0 ) + Number(item.amount)
     return sum
@@ -50,6 +57,13 @@ console.log(incomeFilter,"incomeFilter")
       filteredData = expenseFilter ?? []
     }
   
+const COLORS = [
+  "#0088FE",
+  "#00C49F",
+  "#FFBB28",
+  "#FF8042",
+  "#8884D8",
+];
 
   if(loading){
     return <Loader/>
@@ -61,20 +75,8 @@ console.log(incomeFilter,"incomeFilter")
 
   return (
     <>
-    <div className="ccard flex items-center justify-between gap-2.5">
-      <div className="card p-5 shadow rounded-lg ">
-        <h3 className="text-base text-gray-400">Total Balance</h3>
-        <span className="text-2xl font-bold text-gray-950">{totalBalance}</span>
-      </div>
-      <div className="card p-5 shadow rounded-lg ">
-        <h3 className="text-base text-gray-400">Total Income</h3>
-        <span className="text-2xl font-bold text-gray-950">{totalIncome}</span>
-      </div>
-      <div className="card p-5 shadow rounded-lg ">
-        <h3 className="text-base text-gray-400">Total Balance</h3>
-        <span className="text-2xl font-bold text-gray-950">{totalExpense}</span>
-      </div>
-    </div>
+
+    <SummaryCard totalBalance={totalBalance} totalIncome={totalIncome} totalExpense={totalExpense} />
 
 
     {Object.entries(categoriesIncome ?? {} ).map(([category,amount])=>{
@@ -98,11 +100,35 @@ return(
   </div>
 )
 } )}
+
+<div className="w-full max-w-[500px] h-[350px]">
+<ResponsiveContainer width='100%' height={"100%"}>
+    <PieChart>
+      <Pie
+        data={expenseChartData}
+        dataKey="value"
+        nameKey="Name"
+        cx="50%"
+        cy="50%"
+        outerRadius={80}
+        label
+      >
+      {expenseChartData.map((item,index)=>(
+        <Cell key={item.Name} fill={COLORS[index % COLORS.length ]}     />
+      )) }
+      </Pie>
+      <Tooltip />
+      <Legend />
+    </PieChart>
+</ResponsiveContainer>
+</div>
+
+
       <button onClick={()=>setFilterTYpe("All")}>
-      All
+       All
       </button>
       <button onClick={()=>setFilterTYpe("Income")}>
-      income
+        income
       </button>
       <button onClick={()=>setFilterTYpe("Expense")}>Expense </button>
       <table>
