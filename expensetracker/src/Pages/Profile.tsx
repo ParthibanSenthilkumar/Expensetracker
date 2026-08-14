@@ -1,41 +1,15 @@
-import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
-import type { FormValues } from "../Types/Registertype"
-import { auth } from "../Services/Firebase"
-import { getUserDetails } from "../Services/Api"
-import { errorToast } from "../Components/Toaster"
-import Loader from "../Components/Loader"
 
+import { useContext } from "react"
+import { Link } from "react-router-dom"
+import { ContextuserData } from "../Types/Context/ProfileContext"
+import ProfileSkeleton from "../Components/ProfileSkeleton"
 const Profile = () => {
 
-  const [userData,setUserdata]=useState<FormValues | null>(null)
-  const [loading,setLoading]=useState<boolean>(true)
-
-    useEffect(()=>{
-      const getProfile=async()=>{
-        try{
-         setLoading(true)
-          let uid=auth?.currentUser?.uid
-          if(!uid){
-            return
-          }
-         let data= await getUserDetails(uid)
-         setUserdata(data)
-        }
-        catch(err){
-          if(err instanceof Error){
-            errorToast(err.message)
-            console.log(err.message)  
-          }
-        }
-        finally{
-          setLoading(false)
-        }
-      }
-      getProfile()
-    },[])
+    const {userData,loading}=useContext(ContextuserData)
+    console.log(userData,"userData");
+    
     if(loading){
-      return <Loader />
+      return <p>loading</p>
     }
   return (
     <>
