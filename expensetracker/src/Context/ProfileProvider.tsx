@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import type { FormValues } from "../Registertype";
-import { auth } from "../../Services/Firebase";
-import { getUserDetails } from "../../Services/Api";
-import { errorToast } from "../../Components/Toaster";
+import { auth } from "../Services/Firebase";
+import { getUserDetails } from "../Services/Api";
+import { errorToast } from "../Components/Toaster";
 import { ContextuserData } from "./ProfileContext";
 import { onAuthStateChanged } from "firebase/auth";
 
@@ -21,13 +21,13 @@ const ProfileProvider = ({ children }: ChildProp) => {
         setLoading(false);
         return;
       }
-const start=Date.now()
+      const start = Date.now();
       try {
         setLoading(true);
 
         const data = await getUserDetails(user.uid);
         console.log("API time:", Date.now() - start, "ms");
-        
+
         setUserData(data);
       } catch (err) {
         if (err instanceof Error) {

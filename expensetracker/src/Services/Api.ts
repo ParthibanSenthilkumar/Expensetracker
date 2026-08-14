@@ -2,6 +2,7 @@ import axios from "axios";
 import type { FormValues } from "../Types/Registertype";
 import type { AddTransaction } from "../Types/Addtransactiontype";
 import { errorToast } from "../Components/Toaster";
+import type { EditProfileValues } from "../Types/EditProfiletype";
 
 
 const BASEURL = "https://task-668b3-default-rtdb.firebaseio.com";
@@ -99,6 +100,19 @@ export const getTransDetails=async (id:string)=>{
 export const getUserDetails= async (uid:string) =>{
   try{
     let res=await axios.get(`${BASEURL}/Expense_Regsiter/${uid}.json`)
+    return res.data
+  }
+  catch(err){
+    if(err instanceof Error){
+      errorToast(err.message)
+      console.log(err.message)
+    }
+  }
+}
+
+export const Updateprofile= async ( uid:string,data:EditProfileValues )=>{
+  try{
+    let res= await axios.patch(`${BASEURL}/Expense_Regsiter/${uid}.json`,data)
     return res.data
   }
   catch(err){

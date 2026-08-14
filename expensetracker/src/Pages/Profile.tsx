@@ -1,33 +1,30 @@
 
 import { useContext } from "react"
 import { Link } from "react-router-dom"
-import { ContextuserData } from "../Types/Context/ProfileContext"
+import { ContextuserData } from "../Context/ProfileContext"
 import ProfileSkeleton from "../Components/ProfileSkeleton"
 const Profile = () => {
-
     const {userData,loading}=useContext(ContextuserData)
-    console.log(userData,"userData");
-    
     if(loading){
-      return <p>loading</p>
+      return <ProfileSkeleton />
     }
   return (
     <>
       <div className="profie-container">
           <div className="form-item">
               <label>Name</label>
-              <input type="text" placeholder="Name" value={userData?.fullName} />
+              <input type="text" placeholder="Name" value={userData?.fullName} readOnly />
             </div>
           <div className="form-item">
             <label >Email</label>
-            <input type="email" placeholder="Email" value={userData?.email} />
+            <input type="email" placeholder="Email" value={userData?.email}  readOnly/>
           </div>
             <div className="form-item">
               <label>Name</label>
-              <input type="text" placeholder="phoneNumber" value={userData?.phoneNumber} />
+              <input type="text" placeholder="phoneNumber" value={userData?.phoneNumber} readOnly />
             </div>
             <div className="button-group">
-              <Link to={'/'}> Edit Profile</Link>
+              <Link to={'editprofile'}> Edit Profile</Link>
               <Link to={'/'}> Chance Password</Link>
               <button> Logout </button>
           </div>

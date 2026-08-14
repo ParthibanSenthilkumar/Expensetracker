@@ -8,6 +8,7 @@ import Addtransactions from "../Pages/Addtransactions";
 import Reports from "../Pages/Reports";
 import Profile from "../Pages/Profile";
 import Transdetails from "../Pages/Transdetails";
+import EditProfile from "../Pages/EditProfile";
 
 const Allroutes = () => {
   return (
@@ -25,6 +26,7 @@ const Allroutes = () => {
         <Route path="addTransaction" element={<Addtransactions />} />
         <Route path="reports" element={<Reports />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="profile/editprofile" element={ <EditProfile /> } />
       </Route>
     </Routes>
   );
