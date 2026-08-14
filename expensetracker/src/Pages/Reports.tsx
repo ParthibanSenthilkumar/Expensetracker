@@ -46,6 +46,7 @@ const Reports = () => {
     }),
   );
 
+ 
   const categoriesIncome = incomeFilter?.reduce(
     (sum, item) => {
       sum[item.category] = (sum[item.category] || 0) + Number(item.amount);

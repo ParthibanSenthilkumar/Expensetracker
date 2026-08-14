@@ -21,7 +21,9 @@ const Login = () => {
   const formSubmit = async (data: LoginValues) => {
     try {
       setloading(true);
-      await signInWithEmailAndPassword(auth, data.email, data.password);
+     let currentUser= await signInWithEmailAndPassword(auth, data.email, data.password);
+     let uid=currentUser?.user.uid
+     console.log(uid,"uid")
       reset();
       navigate("/dashboard");
       successToast("Login Successfully");
