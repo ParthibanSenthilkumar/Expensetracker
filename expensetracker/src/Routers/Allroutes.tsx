@@ -9,6 +9,8 @@ import Reports from "../Pages/Reports";
 import Profile from "../Pages/Profile";
 import Transdetails from "../Pages/Transdetails";
 import EditProfile from "../Pages/EditProfile";
+import ChancePassword from "../Pages/ChancePassword";
+import ProtectRoutes from "../Hooks/ProtectRoutes";
 
 const Allroutes = () => {
   return (
@@ -16,17 +18,15 @@ const Allroutes = () => {
       <Route path="/" element={<Navigate to="/login" replace />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/dashboard" element={<Sidebar />}>
+      <Route path="/dashboard" element={ <ProtectRoutes> <Sidebar /> </ProtectRoutes>}>
         <Route index element={<Dashboard />} />
         <Route path="transactions" element={<Transactions />} />
-        <Route
-          path="trans-details/:id"
-          element={<Transdetails />}
-        />
+        <Route path="trans-details/:id" element={<Transdetails />} />
         <Route path="addTransaction" element={<Addtransactions />} />
         <Route path="reports" element={<Reports />} />
         <Route path="profile" element={<Profile />} />
-        <Route path="profile/editprofile" element={ <EditProfile /> } />
+        <Route path="profile/editprofile" element={<EditProfile />} />
+        <Route path="profile/chancepassword" element={<ChancePassword />} />
       </Route>
     </Routes>
   );

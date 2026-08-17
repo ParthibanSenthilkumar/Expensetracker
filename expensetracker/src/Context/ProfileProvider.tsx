@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import type { FormValues } from "../Registertype";
+import type { FormValues } from "../Types/Registertype";
 import { auth } from "../Services/Firebase";
 import { getUserDetails } from "../Services/Api";
 import { errorToast } from "../Components/Toaster";
