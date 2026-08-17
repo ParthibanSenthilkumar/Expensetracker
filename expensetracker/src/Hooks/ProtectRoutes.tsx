@@ -22,7 +22,7 @@ const ProtectRoutes = ({ children }: productrouteprop) => {
     return <Loader />;
   }
   if (!ProtectUser) {
-    <Navigate to="/login" replace />;
+   return <Navigate to="/login" replace />;
   }
   return <>{children}</>;
 };

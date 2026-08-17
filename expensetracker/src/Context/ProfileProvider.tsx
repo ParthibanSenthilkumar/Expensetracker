@@ -21,13 +21,9 @@ const ProfileProvider = ({ children }: ChildProp) => {
         setLoading(false);
         return;
       }
-      const start = Date.now();
       try {
         setLoading(true);
-
         const data = await getUserDetails(user.uid);
-        console.log("API time:", Date.now() - start, "ms");
-
         setUserData(data);
       } catch (err) {
         if (err instanceof Error) {

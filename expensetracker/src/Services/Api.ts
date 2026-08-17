@@ -101,7 +101,7 @@ export const getUserDetails= async (uid:string) =>{
   try{
     let res=await axios.get(`${BASEURL}/Expense_Regsiter/${uid}.json`)
     return res.data
-  }
+}
   catch(err){
     if(err instanceof Error){
       errorToast(err.message)

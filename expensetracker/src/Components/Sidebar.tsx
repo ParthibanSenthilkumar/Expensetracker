@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom"
+import { Link, Outlet, useNavigate } from "react-router-dom"
 import { MdSpaceDashboard } from "react-icons/md";
 import { AiOutlineTransaction } from "react-icons/ai";
 import { GrTransaction } from "react-icons/gr";
@@ -7,8 +7,10 @@ import { CgProfile } from "react-icons/cg";
 import { FaWallet } from "react-icons/fa";
 import { IoNotifications } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
+import { handleDelete } from "../Pages/Logout";
 
 const Sidebar = () => {
+    let navigate=useNavigate()
   return (
     <>
     <div className="wrapper flex items-stretch min-h-screen">
@@ -19,6 +21,7 @@ const Sidebar = () => {
             <Link to='addTransaction' className="nav_link"> <span><GrTransaction /></span> AddTransaction</Link>
             <Link to='reports' className="nav_link" > <span><TbReport /></span> Reports</Link>
             <Link to='profile' className="nav_link"> <span><CgProfile /></span> Profile</Link>
+            <button  className="nav_link" onClick={()=>handleDelete(navigate)} > <span></span> Logout</button>
         </div>
         <div className="grow ">
         <div className="top_bar flex items-start  justify-between px-4 py-5">
