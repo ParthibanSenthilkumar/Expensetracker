@@ -122,3 +122,15 @@ export const Updateprofile= async ( uid:string,data:EditProfileValues )=>{
     }
   }
 }
+export const PasswordChance= async ( uid:string)=>{
+  try{
+    let res= await axios.patch(`${BASEURL}/Expense_Regsiter/${uid}.json`)
+    return res.data
+  }
+  catch(err){
+    if(err instanceof Error){
+      errorToast(err.message)
+      console.log(err.message)
+    }
+  }
+}
