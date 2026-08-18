@@ -9,6 +9,7 @@ const TransactionTable = ({ filteredData }: TransProp) => {
       <table>
         <thead>
           <tr>
+            <th>S.No</th>
             <th>Amount</th>
             <th>category</th>
             <th>date</th>
@@ -21,15 +22,17 @@ const TransactionTable = ({ filteredData }: TransProp) => {
             filteredData.map((translist, index) => (
               <tr key={translist.id}>
                 <td>{index + 1}</td>
-                <td> {translist.amount} </td>
-                <td> {translist.category} </td>
-                <td> {translist.date} </td>
-                <td> {translist.transType} </td>
-                <td> {translist.description} </td>
+                <td>{translist.amount} </td>
+                <td>{translist.category} </td>
+                <td>{translist.date} </td>
+                <td>{translist.transType} </td>
+                <td>{translist.description} </td>
               </tr>
             ))
           ) : (
-            <td colSpan={6}>No data Found</td>
+            <tr>
+                <td colSpan={6}>No data Found</td>
+            </tr>
           )}
         </tbody>
       </table>
