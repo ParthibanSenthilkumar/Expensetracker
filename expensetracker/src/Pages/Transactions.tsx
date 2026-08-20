@@ -4,26 +4,48 @@ import { errorToast } from "../Components/Toaster";
 import useFetch from "../Hooks/useFetch";
 import { deletedata, getTransactions } from "../Services/Api";
 import type { AddTransaction } from "../Types/Addtransactiontype";
+import { useState } from "react";
+import Pagination from "../Components/Pagination";
 
 const Transactions = () => {
   let { data, loading, error } = useFetch<AddTransaction[]>(getTransactions);
 
   let navigate = useNavigate();
 
-  const handleEdit = (id:string) => {
+  const handleEdit = (id: string) => {
     navigate(`/dashboard/trans-details/${id}`);
   };
 
   const handledelete = async (id: string) => {
     await deletedata(id);
   };
+
+  let transPageCount = 5;
+  const [currentPage, setCurrentPage] = useState(1);
+  let lastIndex = currentPage * transPageCount;
+  let fistIndex = lastIndex - transPageCount;
+  // console.log(fistIndex,"frist");
+  let total = Math.ceil((data?.length ?? 0) / transPageCount);
+  let currentList = data?.slice(fistIndex, lastIndex);
+  // console.log(total,"toatal");
+  let page = [];
+  for (let i = 1; i <= total; i++) {
+    page.push(i);
+  }
+  // console.log(page,"page");
+  const handlePrvious = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
+  const handleNext = () => {
+    if (currentPage < total) setCurrentPage(currentPage + 1);
+  };
+
   if (loading) {
     return <Loader />;
   }
   if (error) {
-  errorToast(error);
-  return null;
-
+    errorToast(error);
+    return null;
   }
   return (
     <>
@@ -40,8 +62,11 @@ const Transactions = () => {
           </tr>
         </thead>
         <tbody>
-          {data?.map((datalist, index) => (
-            <tr key={datalist.id} className="border-b border-b-gray-400 border-solid">
+          {currentList?.map((datalist, index) => (
+            <tr
+              key={datalist.id}
+              className="border-b border-b-gray-400 border-solid"
+            >
               <td className="p-3">{index + 1}</td>
               <td className="p-3">{datalist.amount}</td>
               <td className="p-3">{datalist.category}</td>
@@ -63,6 +88,12 @@ const Transactions = () => {
           ))}
         </tbody>
       </table>
+      <Pagination
+        page={page}
+        setCurrentPage={setCurrentPage}
+        handlePrvious={handlePrvious}
+        handleNext={handleNext}
+      />
     </>
   );
 };

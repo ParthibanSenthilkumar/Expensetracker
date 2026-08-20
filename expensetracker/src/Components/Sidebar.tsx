@@ -34,7 +34,7 @@ const Sidebar = () => {
                 <span className="flex items-center gap-3 text-xl "><FaUser /> <h3 className="text-base font-semibold text-gray-950 mt-2 leading-3 "> Parthiban <span className="font-medium text-sm text-gray-400 block"> User Account</span> </h3> </span>
             </div>
         </div>
-        <div className="main-content p-5">
+        <div className="main-content p-10">
             <Outlet />
         </div>
         </div>

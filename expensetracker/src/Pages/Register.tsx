@@ -69,6 +69,7 @@ const Register = () => {
                     required: "enter Your fullName",
                   })}
                 />
+                
                 {errors.fullName && (
                   <p className="errors">{errors.fullName?.message} </p>
                 )}

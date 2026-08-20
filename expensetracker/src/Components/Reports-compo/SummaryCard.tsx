@@ -10,20 +10,20 @@ const SummaryCard = ({
 }: sumaryProps) => {
   return (
     <>
-      <div className="ccard flex items-center justify-between gap-2.5">
-        <div className="card p-5 shadow rounded-lg ">
+      <div className="ccard flex items-stretch  justify-between gap-2.5">
+        <div className="card p-5 shadow rounded-lg grow max-w-2xs">
           <h3 className="text-base text-gray-400">Total Balance</h3>
-          <span className="text-2xl font-bold text-gray-950">
+          <span className="text-3xl font-bold text-gray-950">
             {totalBalance}
           </span>
         </div>
-        <div className="card p-5 shadow rounded-lg ">
+        <div className="card p-5 shadow rounded-lg grow max-w-2xs">
           <h3 className="text-base text-gray-400">Total Income</h3>
           <span className="text-2xl font-bold text-gray-950">
             {totalIncome}
           </span>
         </div>
-        <div className="card p-5 shadow rounded-lg ">
+        <div className="card p-5 shadow rounded-lg grow max-w-2xs">
           <h3 className="text-base text-gray-400">Total Expense</h3>
           <span className="text-2xl font-bold text-gray-950">
             {totalExpense}

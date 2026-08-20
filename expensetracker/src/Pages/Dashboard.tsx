@@ -1,12 +1,12 @@
 import { useState } from "react";
 import Loader from "../Components/Loader";
 import SummaryCard from "../Components/Reports-compo/SummaryCard";
-import TransactionTable from "../Components/Reports-compo/TransactionTable";
 import { errorToast } from "../Components/Toaster";
 import useFetch from "../Hooks/useFetch";
 import { getTransactions } from "../Services/Api";
 import type { AddTransaction } from "../Types/Addtransactiontype";
 import ExpenseChart from "../Components/Reports-compo/ExpenseChart";
+import RecentTransaction from "../Components/RecentTransaction";
 
 const Dashboard = () => {
   let { data, loading, error } = useFetch<AddTransaction[]>(getTransactions);
@@ -61,20 +61,16 @@ const Dashboard = () => {
   }
   return (
     <>
-      <div className="top_section">
+      <div className="top_section ">
         <SummaryCard
           totalBalance={totalBalance}
           totalIncome={totalIncome}
           totalExpense={totalExpense}
         />
       </div>
-      <div className="trans-data">
-        <button onClick={() => setFiltertype("All")}> All </button>
-        <button onClick={() => setFiltertype("Income")}> Income </button>
-        <button onClick={() => setFiltertype("Expense")}> Expense </button>
-        <TransactionTable filteredData={filteredData} />
-      </div>
 
+      <RecentTransaction filtertype={filtertype} setFiltertype={setFiltertype} />
+      
       <ExpenseChart expenseChartData={expenseChartData} />
     </>
   );
