@@ -3,68 +3,132 @@ import useFetch from "../Hooks/useFetch";
 import { getTransactions } from "../Services/Api";
 import Loader from "./Loader";
 import { errorToast } from "./Toaster";
-interface filterProp{
-  filtertype:string
-  setFiltertype:React.Dispatch<React.SetStateAction<string>>
+
+interface FilterProp {
+  filtertype: string;
+  setFiltertype: React.Dispatch<React.SetStateAction<string>>;
 }
-const RecentTransaction = ({filtertype,setFiltertype}:filterProp) => {
+const RecentTransaction = ({ filtertype, setFiltertype }: FilterProp) => {
   const { data, loading, error } = useFetch(getTransactions);
-  const lastestrans =[...(data)?? []].sort((a, b) => new Date(b.date).getTime()  - new Date(a.date).getTime() ).slice(0,5);
-  // console.log(lastestrans, "lastestrans");
-  
-  let filteredData = lastestrans ?? [];
+  const latestTrans = [...(data ?? [])]
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, 5);
+  let filteredData = latestTrans;
   if (filtertype === "Income") {
-    filteredData = lastestrans?.filter((item) => item.transType === "Income") ?? [];
+    filteredData = latestTrans.filter((item) => item.transType === "Income");
   }
   if (filtertype === "Expense") {
-     filteredData= lastestrans?.filter((item) => item.transType === "Expense") ?? []
+    filteredData = latestTrans.filter((item) => item.transType === "Expense");
   }
-  if(loading){
-    return <Loader />
+  if (loading) {
+    return <Loader />;
   }
-  if(error){
-    errorToast(error)
+  if (error) {
+    errorToast(error);
   }
   return (
-  <>
-        <div className="trans-data">
-        <button onClick={() => setFiltertype("All")}> All </button>
-        <button onClick={() => setFiltertype("Income")}> Income </button>
-        <button onClick={() => setFiltertype("Expense")}> Expense </button>
+    <div className="w-full rounded-md bg-white p-5 shadow-custom1">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-6">
+        <div>
+          <h2 className="text-2xl font-bold text-indigo-500 font-heading">
+            Recent Transactions
+          </h2>
+          <p className="text-sm text-gray-400 mt-1 font-secondary">
+            Your latest income and expenses
+          </p>
+        </div>
+        <div className="flex items-center gap-2 bg-gray-100 p-1 rounded-lg w-fit">
+          {["All", "Income", "Expense"].map((type) => (
+            <button
+              key={type}
+              onClick={() => setFiltertype(type)}
+              className={`px-4 py-2 text-sm font-medium font-heading  rounded-md transition-all duration-200
+                ${
+                  filtertype === type
+                    ? "bg-indigo-500 text-white shadow-sm"
+                    : "text-gray-500 hover:text-gray-800 hover:bg-white"
+                }
+              `}
+            >
+              {type}
+            </button>
+          ))}
+        </div>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>S.No</th>
-            <th>Amount</th>
-            <th>category</th>
-            <th>date</th>
-            <th>transType</th>
-            <th>description</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredData && filteredData?.length > 0 ? (
-            filteredData.map((translist, index) => (
-              <tr key={translist.id}>
-                <td>{index + 1}</td>
-                <td>{translist.amount} </td>
-                <td>{translist.category} </td>
-                <td>{translist.date} </td>
-                <td>{translist.transType} </td>
-                <td>{translist.description} </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan={6}>No data Found</td>
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[700px] text-left">
+          <thead>
+            <tr className="border-b border-gray-100 text-sm text-gray-400">
+              <th className="px-4 py-3 font-medium font-heading">S.No</th>
+              <th className="px-4 py-3 font-medium font-heading">Amount</th>
+              <th className="px-4 py-3 font-medium font-heading">Category</th>
+              <th className="px-4 py-3 font-medium font-heading">Date</th>
+              <th className="px-4 py-3 font-medium font-heading">Type</th>
+              <th className="px-4 py-3 font-medium font-heading">Description</th>
             </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
 
-    </>
+          <tbody>
+            {filteredData.length > 0 ? (
+              filteredData.map((transaction, index) => (
+                <tr
+                  key={transaction.id}
+                  className="border-b border-gray-50 hover:bg-gray-50 transition-colors"
+                >
+                  <td className="px-4 py-4 text-sm text-gray-500 font-secondary">
+                    {index + 1}
+                  </td>
+
+                  <td
+                    className={`px-4 py-4 font-semibold font-secondary ${
+                      transaction.transType === "Income"
+                        ? "text-green-500"
+                        : "text-red-500"
+                    }`}
+                  >
+                    {transaction.transType === "Income"
+                      ? `+ ₹${transaction.amount}`
+                      : `- ₹${transaction.amount}`}
+                  </td>
+
+                  <td className="px-4 py-4">
+                    <span className="px-3 py-1 rounded-full text-indigo-600 text-xs font-bold font-secondary">
+                      {transaction.category}
+                    </span>
+                  </td>
+
+                  <td className="px-4 py-4 text-sm text-gray-500 font-secondary">
+                    {transaction.date}
+                  </td>
+
+                  <td className="px-4 py-4">
+                    <span
+                      className={`px-3 py-1 rounded-full text-xs font-semibold font-secondary ${
+                        transaction.transType === "Income"
+                          ? "bg-green-50 text-green-600"
+                          : "bg-red-50 text-red-600"
+                      }`}
+                    >
+                      {transaction.transType}
+                    </span>
+                  </td>
+
+                  <td className="px-4 py-4 text-sm text-gray-500 max-w-[200px] truncate">
+                    {transaction.description}
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={6} className="py-10 text-center text-gray-400">
+                  No transactions found
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 };
-
 export default RecentTransaction;

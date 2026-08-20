@@ -5,7 +5,7 @@ import { errorToast } from "../Components/Toaster";
 import useFetch from "../Hooks/useFetch";
 import { getTransactions } from "../Services/Api";
 import type { AddTransaction } from "../Types/Addtransactiontype";
-import ExpenseChart from "../Components/Reports-compo/ExpenseChart";
+// import ExpenseChart from "../Components/Reports-compo/ExpenseChart";
 import RecentTransaction from "../Components/RecentTransaction";
 
 const Dashboard = () => {
@@ -68,10 +68,14 @@ const Dashboard = () => {
           totalExpense={totalExpense}
         />
       </div>
-
-      <RecentTransaction filtertype={filtertype} setFiltertype={setFiltertype} />
-      
-      <ExpenseChart expenseChartData={expenseChartData} />
+      {/* <div className="grid grid-cols-1 xl:grid-cols-[300px_1fr] items-start gap-6 my-10">
+        <div className="expense_chart">
+            <ExpenseChart expenseChartData={expenseChartData} />  
+        </div>
+      </div> */}
+      <div className="recent_trans mt-7">
+          <RecentTransaction filtertype={filtertype} setFiltertype={setFiltertype} />
+        </div>
     </>
   );
 };
