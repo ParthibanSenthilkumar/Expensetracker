@@ -14,21 +14,21 @@ const Reports = () => {
   const [filterType, setFilterTYpe] = useState("All");
 
   const incomeFilter = data?.filter((item) => item.transType === "Income");
-  console.log(incomeFilter, "incomeFilter");
+  // console.log(incomeFilter, "incomeFilter");
 
   const expenseFilter = data?.filter((item) => item.transType === "Expense");
-  console.log(expenseFilter, "expenseFilter");
+  // console.log(expenseFilter, "expenseFilter");
 
   const totalIncome =
     incomeFilter?.reduce((sum, item) => sum + Number(item?.amount), 0) ?? 0;
-  console.log(totalIncome, "totalExpense");
+  // console.log(totalIncome, "totalExpense");
 
   const totalExpense =
     expenseFilter?.reduce((sum, item) => sum + Number(item?.amount), 0) ?? 0;
-  console.log(totalExpense, "totalExpense");
+  // console.log(totalExpense, "totalExpense");
 
   const totalBalance = (totalIncome || 0) - (totalExpense || 0);
-  console.log(totalBalance, "totalBalance");
+  // console.log(totalBalance, "totalBalance");
 
   const categoriesExpense = expenseFilter?.reduce(
     (sum, item) => {
@@ -37,16 +37,12 @@ const Reports = () => {
     },
     {} as Record<string, number>,
   );
-  console.log(categoriesExpense);
-
   const expenseChartData = Object.entries(categoriesExpense ?? {}).map(
     ([category, amount]) => ({
       Name: category,
       value: amount,
     }),
   );
-
- 
   const categoriesIncome = incomeFilter?.reduce(
     (sum, item) => {
       sum[item.category] = (sum[item.category] || 0) + Number(item.amount);
@@ -55,17 +51,13 @@ const Reports = () => {
     {} as Record<string, number>,
   );
   console.log(categoriesIncome);
-
   let filteredData = data ?? [];
-
   if (filterType === "Income") {
     filteredData = incomeFilter ?? [];
   }
-
   if (filterType === "Expense") {
     filteredData = expenseFilter ?? [];
   }
-
   if (loading) {
     return <Loader />;
   }
@@ -76,6 +68,9 @@ const Reports = () => {
 
   return (
     <>
+        <h2 className="text-2xl font-bold text-indigo-500 font-heading mb-5">
+            Transaction History
+        </h2>
       <SummaryCard
         totalBalance={totalBalance}
         totalIncome={totalIncome}
@@ -88,9 +83,22 @@ const Reports = () => {
         totalExpense={totalExpense}
       />
       <ExpenseChart expenseChartData={expenseChartData} />
-      <button onClick={() => setFilterTYpe("All")}>All</button>
-      <button onClick={() => setFilterTYpe("Income")}>income</button>
-      <button onClick={() => setFilterTYpe("Expense")}>Expense </button>
+
+      <div className="flex items-center gap-2 bg-gray-100 p-1.5 rounded-lg w-fit mt-8 mb-3">
+        {["All", "Income", "Expense"].map((type) => (
+          <button
+            key={type}
+            onClick={() => setFilterTYpe(type)}
+            className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
+              filterType === type
+                ? "bg-indigo-500 text-white shadow-sm"
+                : "text-gray-600 hover:bg-gray-200"
+            }`}
+          >
+            {type}
+          </button>
+        ))}
+      </div>
 
       <TransactionTable filteredData={filteredData} />
     </>

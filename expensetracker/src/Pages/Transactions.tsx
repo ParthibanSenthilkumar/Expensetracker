@@ -23,7 +23,7 @@ const Transactions = () => {
     await deletedata(id);
   };
 
-  let fiterData = data?.filter((item) => {
+  let filterData = data?.filter((item) => {
     const Search = item.category
       .toLowerCase()
       .includes(userSearch.toLowerCase());
@@ -35,8 +35,8 @@ const Transactions = () => {
   const [currentPage, setCurrentPage] = useState(1);
   let lastIndex = currentPage * transPageCount;
   let fistIndex = lastIndex - transPageCount;
-  let total = Math.ceil((fiterData?.length ?? 0) / transPageCount);
-  let currentList = fiterData?.slice(fistIndex, lastIndex);
+  let total = Math.ceil((filterData?.length ?? 0) / transPageCount);
+  let currentList = filterData?.slice(fistIndex, lastIndex);
   let page = [];
   for (let i = 1; i <= total; i++) {
     page.push(i);
@@ -58,17 +58,20 @@ const Transactions = () => {
   }
   return (
     <>
-     <div className="mb-5">
-          <h2 className="text-2xl font-bold text-indigo-500 font-heading">
-            Transactions
-          </h2>
-            {/* <p className="text-sm text-gray-400 mt-1 font-secondary">
+      <div className="mb-5">
+        <h2 className="text-2xl font-bold text-indigo-500 font-heading">
+          Transactions
+        </h2>
+        {/* <p className="text-sm text-gray-400 mt-1 font-secondary">
             Manage and track all your income and expenses in one place.
             </p> */}
-        </div>
+      </div>
       <div className="flex items-center justify-between mb-4">
         <div className="relative max-w-[350px] w-full">
-          <FiSearch className="absolute left-1 top-[11px] text-gray-400"  size={18} />
+          <FiSearch
+            className="absolute left-1 top-[11px] text-gray-400"
+            size={18}
+          />
           <input
             type="text"
             className="px-7"
@@ -100,7 +103,7 @@ const Transactions = () => {
 
       <table className="w-full bg-white  rounded-lg shadow-custom1">
         <thead>
-          <tr className="border-b border-solid border-gray-100 text-sm text-gray-700 px-3 text-left">
+          <tr className="border-b border-solid border-gray-100 text-base text-gray-500 text-left">
             <th className="px-4 py-3 font-medium font-heading">Sno</th>
             <th className="px-4 py-3 font-medium font-heading">Amount</th>
             <th className="px-4 py-3 font-medium font-heading">Category</th>
@@ -111,58 +114,78 @@ const Transactions = () => {
           </tr>
         </thead>
         <tbody>
-          {currentList?.map((datalist, index) => (
-            <tr
-              key={datalist.id}
-              className="border-b border-gray-50 hover:bg-gray-50 transition-colors"
-            >
-              <td className="px-4 py-4  text-sm text-gray-500 font-secondary">
-                {index + 1}
-              </td>
-              <td
-                className={`px-4 py-4  text-sm text-gray-500 font-medium font-secondary ${datalist.transType == "Income" ? "text-green-500" : "text-red-500"}`}
+          {currentList && currentList.length > 0 ? (
+            currentList.map((datalist, index) => (
+              <tr
+                key={datalist.id}
+                className="border-b border-gray-50 hover:bg-gray-50 transition-colors"
               >
-                {datalist.transType == "Income"
-                  ? `+${datalist.amount}`
-                  : `-${datalist.amount}`}
-              </td>
-              <td className="px-4 py-4 text-sm text-indigo-500 font-medium font-secondary ">
-                {datalist.category}
-              </td>
-              <td className="px-4 py-4  text-sm text-gray-500 font-secondary">
-                <span
-                  className={`${datalist.transType == "Income" ? "bg-green-50 py-1 px-3 rounded-full text-xs text-green-600" : "bg-red-50 py-1 px-3  rounded-full text-xs text-rose-600"}`}
+                <td className="px-4 py-4 text-sm text-gray-500 font-secondary">
+                  {index + 1}
+                </td>
+                <td
+                  className={`px-4 py-4 text-sm font-medium font-secondary ${
+                    datalist.transType === "Income"
+                      ? "text-green-500"
+                      : "text-red-500"
+                  }`}
                 >
-                  {datalist.transType}
-                </span>
-              </td>
-              <td className="px-4 py-4  text-sm text-gray-500 font-secondary">
-                {datalist.date}
-              </td>
-              <td className="px-4 py-4  text-sm text-gray-500 font-secondary truncate">
-                {datalist.description.length
-                  ? `${datalist.description.slice(0, 10)}...`
-                  : datalist.description}
-              </td>
-              <td>
-              <button
-                type="button"
-                onClick={() => handleEdit(datalist.id!)}
-                className="p-2 bg-indigo-50 text-indigo-500 hover:bg-indigo-50 rounded-md transition-colors mr-1.5"
-              >
-                <FiEdit2 size={17} />
-              </button>
+                  {datalist.transType === "Income"
+                    ? `+${datalist.amount}`
+                    : `-${datalist.amount}`}
+                </td>
+                <td className="px-4 py-4 text-sm text-indigo-500 font-medium font-secondary">
+                  {datalist.category}
+                </td>
 
-              <button 
-                type="button"
-                onClick={() => handledelete(datalist.id!)}
-                className="p-2 bg-red-50 text-red-500 hover:bg-red-50 rounded-md transition-colors"
+                <td className="px-4 py-4 text-sm text-gray-500 font-secondary">
+                  <span
+                    className={`py-1 px-3 rounded-full text-xs ${
+                      datalist.transType === "Income"
+                        ? "bg-green-50 text-green-600"
+                        : "bg-red-50 text-rose-600"
+                    }`}
+                  >
+                    {datalist.transType}
+                  </span>
+                </td>
+                <td className="px-4 py-4 text-sm text-gray-500 font-secondary">
+                  {datalist.date}
+                </td>
+                <td className="px-4 py-4 text-sm text-gray-500 font-secondary">
+                  {datalist.description.length > 10
+                    ? `${datalist.description.slice(0, 10)}...`
+                    : datalist.description}
+                </td>
+                <td className="px-4 py-4">
+                  <button
+                    type="button"
+                    onClick={() => handleEdit(datalist.id!)}
+                    className="p-2 bg-indigo-50 text-indigo-500 hover:bg-indigo-100 rounded-md transition-colors mr-1.5"
+                  >
+                    <FiEdit2 size={17} />
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => handledelete(datalist.id!)}
+                    className="p-2 bg-red-50 text-red-500 hover:bg-red-100 rounded-md transition-colors"
+                  >
+                    <FiTrash2 size={17} />
+                  </button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td
+                colSpan={7}
+                className="py-12 text-center text-sm text-gray-400 font-secondary"
               >
-                <FiTrash2 size={17} />
-              </button>
+                No Transactions found
               </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
       <Pagination

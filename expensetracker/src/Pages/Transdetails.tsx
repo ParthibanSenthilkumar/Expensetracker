@@ -67,6 +67,7 @@ const Transdetails = () => {
   }
   return (
     <div className="shadow-custom1 max-w-lg mx-auto bg-white rounded-xl p-8">
+      <h2 className="text-2xl font-bold text-center font-heading text-indigo-500  mb-8">Edit Transaction</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-6">
           <p className="font-semibold text-gray-700 mb-3">Transaction Type</p>
@@ -83,7 +84,6 @@ const Transdetails = () => {
             >
               Income
             </button>
-
             <button
               type="button"
               onClick={() => changeType("Expense")}
@@ -98,10 +98,9 @@ const Transdetails = () => {
           </div>
         </div>
 
-        {/* Amount */}
-        <div className="form-item">
+        <div className="form-item mb-2.5">
           <label
-            className="block mb-2 font-medium text-gray-700"
+            className="block mb-2 font-medium text-gray-700 font-secondary"
             htmlFor="amount"
           >
             Amount
@@ -110,7 +109,7 @@ const Transdetails = () => {
           <input
             type="text"
             id="amount"
-            className="w-full border border-gray-300 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border text-sm font-medium font-secondary text-gray-500 border-gray-300"
             placeholder="Enter the amount"
             {...register("amount", {
               required: "Enter the Amount",
@@ -123,7 +122,7 @@ const Transdetails = () => {
             </p>
           )}
         </div>
-        <div className="form-item">
+        <div className="form-item mb-2.5">
           <label
             htmlFor="category"
             className="block mb-2 font-medium text-gray-700"
@@ -133,7 +132,7 @@ const Transdetails = () => {
 
           <select
             id="category"
-            className="w-full border text-base text-gray-950 border-gray-300 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full  text-sm  font-secondary  px-3 py-2 text-gray-500 border rounded-md border-gray-300"
             {...register("category", {
               required: "Select the category",
             })}
@@ -157,17 +156,16 @@ const Transdetails = () => {
             </p>
           )}
         </div>
-        <div className="form-item">
+        <div className="form-item mb-2.5">
           <label
             htmlFor="description"
             className="block mb-2 font-medium text-gray-700"
           >
             Description
           </label>
-
           <textarea
             id="description"
-            className="w-full border border-gray-300 rounded-lg px-4 py-2 resize-none outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-gray-300 text-sm  font-secondary text-gray-500 rounded-md px-4 py-2 resize-none outline-none"
             placeholder="Enter the message"
             {...register("description", {
               required: "Enter your message",
@@ -180,30 +178,27 @@ const Transdetails = () => {
             </p>
           )}
         </div>
-        <div className="form-item">
+        <div className="form-item mb-2.5">
           <label
             htmlFor="date"
             className="block mb-2 font-medium text-gray-700"
           >
             Date
           </label>
-
           <input
             type="date"
             id="date"
-            className="w-full border border-gray-300 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-500"
+            className="text-sm  font-secondary text-gray-500 border border-gray-300 rounded-md "
             {...register("date", {
               required: "Select the date",
             })}
           />
-
           {errors.date && (
             <p className="mx-2 text-sm font-medium text-red-500">
               {errors.date.message}
             </p>
           )}
         </div>
-
         <button type="submit" className="sub_btn">
           Update
         </button>

@@ -69,7 +69,6 @@ const Register = () => {
                     required: "enter Your fullName",
                   })}
                 />
-                
                 {errors.fullName && (
                   <p className="errors">{errors.fullName?.message} </p>
                 )}
@@ -117,18 +116,16 @@ const Register = () => {
                 type="submit"
                 className="mt-5 w-full p-3 bg-[#6366f1] text-white rounded cursor-pointer"
               >
-                {" "}
-                Register Now{" "}
+                Register Now
               </button>
               <h6 className="text-sm text-gray-500 mt-5 text-center">
-                {" "}
-                Already have an accont?{" "}
+                Already have an accont?
                 <Link
                   to={"/login"}
                   className="text-base  font-bold text-[#6366f1] "
                 >
                   Login
-                </Link>{" "}
+                </Link>
               </h6>
             </form>
           </div>

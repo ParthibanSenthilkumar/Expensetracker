@@ -75,7 +75,7 @@ const Addtransactions = () => {
   return (
     <section className="mt-5">
       <div className="shadow-custom1 max-w-lg mx-auto bg-white rounded-xl  p-8">
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
+        <h2 className="text-2xl font-bold font-heading text-indigo-500 text-center mb-8">
           Add Transaction
         </h2>
         <div className="mb-6">

@@ -121,7 +121,7 @@ const RecentTransaction = ({ filtertype, setFiltertype }: FilterProp) => {
             ) : (
               <tr>
                 <td colSpan={6} className="py-10 text-center text-gray-400">
-                  No transactions found
+                  No Transactions found
                 </td>
               </tr>
             )}
