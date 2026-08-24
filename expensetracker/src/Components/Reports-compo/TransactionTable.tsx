@@ -1,9 +1,9 @@
 import type { AddTransaction } from "../../Types/Addtransactiontype";
 
 interface TransProp {
-  filteredData: AddTransaction[];
+  currentList: AddTransaction[];
 }
-const TransactionTable = ({ filteredData }: TransProp) => {
+const TransactionTable = ({ currentList }: TransProp) => {
   return (
     <>
       <table className="w-full bg-white rounded-lg shadow-custom1 overflow-hidden">
@@ -18,8 +18,8 @@ const TransactionTable = ({ filteredData }: TransProp) => {
           </tr>
         </thead>
         <tbody>
-          {filteredData && filteredData.length > 0 ? (
-            filteredData.map((translist, index) => (
+          {currentList && currentList.length > 0 ? (
+            currentList.map((translist, index) => (
               <tr
                 key={translist.id}
                 className="border-b border-gray-50 hover:bg-gray-50 transition-colors"

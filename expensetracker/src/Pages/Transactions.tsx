@@ -67,14 +67,14 @@ const Transactions = () => {
             </p> */}
       </div>
       <div className="flex items-center justify-between mb-4">
-        <div className="relative max-w-[350px] w-full">
+        <div className="relative max-w-[750px] w-full">
           <FiSearch
             className="absolute left-1 top-[11px] text-gray-400"
             size={18}
           />
           <input
             type="text"
-            className="px-7"
+            className="border border-gray-200 rounded-lg px-7 py-2 text-sm outline-none focus:border-indigo-500"
             value={userSearch}
             placeholder="Search by Category"
             onChange={(e) => {

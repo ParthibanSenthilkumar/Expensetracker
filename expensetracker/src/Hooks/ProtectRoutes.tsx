@@ -12,7 +12,7 @@ const ProtectRoutes = ({ children }: productrouteprop) => {
   const [loading, setloading] = useState<boolean>(true);
 
   useEffect(() => {
-    let unSubscribe = onAuthStateChanged(auth, async (User) => {
+    let unSubscribe = onAuthStateChanged(auth, async (User) => {  
       setProtectUser(User);
       setloading(false);
     });
