@@ -19,7 +19,7 @@ const ProtectRoutes = ({ children }: productrouteprop) => {
     return () => unSubscribe();
   }, []);
   if (loading) {
-    return <Loader />;
+    return <div className="flex items-center justify-center h-screen w-screen"><Loader /></div>;
   }
   if (!ProtectUser) {
    return <Navigate to="/login" replace />;

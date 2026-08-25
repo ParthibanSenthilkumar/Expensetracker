@@ -50,7 +50,7 @@ const Transactions = () => {
   };
 
   if (loading) {
-    return <Loader />;
+    return <div className="flex items-center justify-center h-screen w-screen"><Loader /></div>;
   }
   if (error) {
     errorToast(error);

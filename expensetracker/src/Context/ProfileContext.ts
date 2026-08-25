@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import type { FormValues } from "../Registertype";
+import type { FormValues } from "../Types/Registertype";
 
 interface ProfilecontextType{
     userData:FormValues | null
