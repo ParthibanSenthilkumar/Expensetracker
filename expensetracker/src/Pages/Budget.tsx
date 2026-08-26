@@ -180,85 +180,108 @@ const Budget = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {budgetData?.map((item) => {
-              const categorytransaction = transData?.filter((trans) => {
+            {budgetData && budgetData.length > 0 ? (
+              budgetData.map((item) => {
+                const categorytransaction = transData?.filter((trans) => {
+                  return (
+                    trans.category === item.category &&
+                    trans.transType === "Expense"
+                  );
+                });
+
+                const spent =
+                  categorytransaction?.reduce((sum, trans) => {
+                    return sum + Number(trans.amount);
+                  }, 0) ?? 0;
+
+                const remainingAmount = item.amount - spent;
+
+                const percentageProgress =
+                  item.amount > 0
+                    ? Math.min((spent / item.amount) * 100, 100)
+                    : 0;
+
                 return (
-                  trans.category === item.category &&
-                  trans.transType === "Expense"
+                  <div
+                    key={item.id}
+                    className="bg-white shadow-custom1 p-6 rounded-2xl hover:shadow-lg transition"
+                  >
+                    <div className="flex items-center justify-between mb-5">
+                      <div>
+                        <h3 className="font-heading text-lg font-semibold text-gray-800">
+                          {item.category}
+                        </h3>
+
+                        <p className="font-secondary text-xs text-gray-400 mt-1">
+                          {item.month}
+                        </p>
+                      </div>
+
+                      <div className="w-10 h-10 font-heading rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold">
+                        {item.category.charAt(0)}
+                      </div>
+                    </div>
+
+                    <div className="mb-5">
+                      <p className="font-secondary text-xs text-gray-500">
+                        Budget Limit
+                      </p>
+
+                      <p className="font-heading text-2xl font-bold text-indigo-500 mt-1">
+                        ₹{item.amount}
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3 mb-5">
+                      <div className="bg-red-50 rounded-xl p-3">
+                        <p className="font-secondary text-xs text-gray-500">
+                          Spent
+                        </p>
+
+                        <p className="font-secondary text-sm font-semibold text-red-500 mt-1">
+                          ₹{spent}
+                        </p>
+                      </div>
+
+                      <div className="bg-green-50 rounded-xl p-3">
+                        <p className="font-secondary text-xs text-gray-500">
+                          Remaining
+                        </p>
+
+                        <p className="font-secondary text-sm font-semibold text-green-600 mt-1">
+                          ₹{remainingAmount}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="font-secondary text-xs text-gray-500">
+                        Spending Progress
+                      </p>
+
+                      <p className="font-secondary text-xs font-semibold text-gray-700">
+                        {percentageProgress.toFixed(0)}%
+                      </p>
+                    </div>
+
+                    <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-indigo-500 rounded-full transition-all"
+                        style={{
+                          width: `${percentageProgress}%`,
+                        }}
+                      />
+                    </div>
+                  </div>
                 );
-              });
-
-              const spent =
-                categorytransaction?.reduce((sum, trans) => {
-                  return sum + Number(trans.amount);
-                }, 0) ?? 0;
-
-              const remainingAmount = item.amount - spent;
-
-              const percentageProgress =
-                item.amount > 0
-                  ? Math.min((spent / item.amount) * 100, 100)
-                  : 0;
-              return (
-                <div
-                  key={item.id}
-                  className="bg-white shadow-custom1 p-6 rounded-2xl hover:shadow-lg transition"
-                >
-                  <div className="flex items-center justify-between mb-5">
-                    <div>
-                      <h3 className="text-lg fond-heading font-semibold text-gray-800">
-                        {item.category}
-                      </h3>
-
-                      <p className="text-xs font-secondary text-gray-400 mt-1">{item.month}</p>
-                    </div>
-
-                    <div className="w-10 h-10 font-heading rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold">
-                      {item.category.charAt(0)}
-                    </div>
-                  </div>
-                  <div className="mb-5">
-                    <p className="text-xs text-gray-500 font-secondary">Budget Limit</p>
-                    <p className="text-2xl font-bold font-secondary text-indigo-500 mt-1">
-                      {item.amount}
-                    </p>
-                  </div>
-                  <div className="grid grid-cols-2 gap-3 mb-5">
-                    <div className="bg-red-50 rounded-xl p-3">
-                      <p className="text-xs text-gray-500 font-secondary">Spent</p>
-
-                      <p className="text-sm font-semibold font-secondary text-red-500 mt-1">
-                        {spent}
-                      </p>
-                    </div>
-
-                    <div className="bg-green-50 rounded-xl p-3">
-                      <p className="text-xs text-gray-500 font-secondary">Remaining</p>
-
-                      <p className="text-sm font-semibold font-secondary text-green-600 mt-1">
-                        {remainingAmount}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between mb-2">
-                    <p className="text-xs font-secondary text-gray-500">Spending Progress</p>
-
-                    <p className="text-xs font-semibold text-gray-700">
-                      {percentageProgress.toFixed(0)}%
-                    </p>
-                  </div>
-                  <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-indigo-500 rounded-full transition-all"
-                      style={{
-                        width: `${percentageProgress}%`,
-                      }}
-                    />
-                  </div>
-                </div>
-              );
-            })}
+              })
+            ) : (
+              <div className="col-span-full flex flex-col items-center justify-center py-16">
+                <p className="font-secondary text-sm text-gray-400 mt-1">
+                  Create your first budget to start tracking your expenses.
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>

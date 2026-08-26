@@ -87,8 +87,8 @@ const RecentTransaction = ({ filtertype, setFiltertype }: FilterProp) => {
                     }`}
                   >
                     {transaction.transType === "Income"
-                      ? `+ ₹${transaction.amount}`
-                      : `- ₹${transaction.amount}`}
+                      ? `+${transaction.amount}`
+                      : `-${transaction.amount}`}
                   </td>
 
                   <td className="px-4 py-4">
