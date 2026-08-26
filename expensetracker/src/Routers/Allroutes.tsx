@@ -11,6 +11,7 @@ import Transdetails from "../Pages/Transdetails";
 import EditProfile from "../Pages/EditProfile";
 import ChancePassword from "../Pages/ChancePassword";
 import ProtectRoutes from "../Hooks/ProtectRoutes";
+import Budget from "../Pages/Budget";
 
 const Allroutes = () => {
   return (
@@ -27,6 +28,7 @@ const Allroutes = () => {
         <Route path="profile" element={<Profile />} />
         <Route path="profile/editprofile" element={<EditProfile />} />
         <Route path="profile/chancepassword" element={<ChancePassword />} />
+        <Route path="budget" element={ <Budget /> } />
       </Route>
     </Routes>
   );

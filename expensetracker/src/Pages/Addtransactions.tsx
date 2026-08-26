@@ -107,7 +107,7 @@ const Addtransactions = () => {
         </div>
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block mb-2 font-medium text-gray-700">
+            <label className="block mb-2 text-sm font-medium font-secondary   text-gray-700">
               Amount
             </label>
 
@@ -117,11 +117,11 @@ const Addtransactions = () => {
               value={transData.amount}
               onChange={handleChance}
               placeholder="Enter Amount"
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full h-12 bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 text-sm  font-secondary text-gray-600 outline-none focus:ring-2 focus:ring-indigo-300"
             />
           </div>
           <div>
-            <label className="block mb-2 font-medium text-gray-700">
+            <label className="block mb-2 text-sm font-medium font-secondary text-gray-700">
               Category
             </label>
 
@@ -129,7 +129,7 @@ const Addtransactions = () => {
               name="category"
               value={transData.category}
               onChange={handleChance}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full h-12 border border-gray-300 px-4 bg-gray-50 text-sm text-gray-600 rounded-lg outline-none focus:ring-2 focus:ring-indigo-300"
             >
               <option value="">Select Category</option>
 
@@ -141,7 +141,7 @@ const Addtransactions = () => {
             </select>
           </div>
           <div>
-            <label className="block mb-2 font-medium text-gray-700">
+            <label className="block mb-2 text-sm font-medium font-secondary text-gray-700">
               Description
             </label>
 
@@ -151,18 +151,18 @@ const Addtransactions = () => {
               onChange={handleChance}
               rows={3}
               placeholder="Enter Description"
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 resize-none outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 bg-gray-50 text-sm text-gray-600 resize-none outline-none focus:ring-2 focus:ring-indigo-300"
             />
           </div>
           <div>
-            <label className="block mb-2 font-medium text-gray-700">Date</label>
+            <label className="block mb-2 text-sm font-medium font-secondary text-gray-700">Date</label>
 
             <input
               type="date"
               name="date"
               value={transData.date}
               onChange={handleChance}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full h-12 border border-gray-300 rounded-lg px-4 py-2 text-sm text-gray-600 font-secondary bg-gray-50  outline-none focus:ring-2 focus:ring-indigo-300"
             />
           </div>
           <button type="submit" className="sub_btn transition duration-300">

@@ -3,6 +3,7 @@ import type { FormValues } from "../Types/Registertype";
 import type { AddTransaction } from "../Types/Addtransactiontype";
 import { errorToast } from "../Components/Toaster";
 import type { EditProfileValues } from "../Types/EditProfiletype";
+import type { budget } from "../Types/Budgettype";
 
 
 const BASEURL = "https://task-668b3-default-rtdb.firebaseio.com";
@@ -133,4 +134,39 @@ export const PasswordChance= async ( uid:string)=>{
       console.log(err.message)
     }
   }
+}
+
+export const addBudget=async(data:budget)=>{
+  try{
+    let res= await axios.post(`${BASEURL}/expenseBudget.json`,data)
+    return res.data
+  }
+  catch(err){
+    if(err instanceof Error ){
+      errorToast(err.message)
+      throw new Error
+    }
+    
+  }
+}
+
+export const getBudget=async(): Promise<budget[]>=>{
+    try{
+      let res=await axios.get(`${BASEURL}/expenseBudget.json`)
+      if(!res.data){
+        return []
+      }
+      let resarray:budget[] =Object.keys(res.data).map((key)=>({
+          id:key,
+          ...res.data[key]
+        }))
+        return resarray
+    }
+    catch(err){
+    if(err instanceof Error ){
+      errorToast(err.message)
+      throw new Error
+    }
+    }
+    throw new Error("Something went wrong while fetching budget data")
 }

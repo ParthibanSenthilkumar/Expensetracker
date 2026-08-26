@@ -9,6 +9,7 @@ import { IoNotifications } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
 import { handleDelete } from "../Pages/Logout";
 import { FiLogOut } from "react-icons/fi";
+import { MdAccountBalanceWallet } from "react-icons/md";
 
 const Sidebar = () => {
     let navigate=useNavigate()
@@ -22,6 +23,7 @@ const Sidebar = () => {
             <Link to='addTransaction' className="nav_link"> <span><GrTransaction /></span> AddTransaction</Link>
             <Link to='reports' className="nav_link" > <span><TbReport /></span> Reports</Link>
             <Link to='profile' className="nav_link"> <span><CgProfile /></span> Profile</Link>
+            <Link to='budget' className="nav_link"><span><MdAccountBalanceWallet /> </span>  Budget</Link>
             <button  className="nav_link" onClick={()=>handleDelete(navigate)} > <span><FiLogOut /></span> Logout</button>
         </div>
         <div className="grow ">
