@@ -170,3 +170,28 @@ export const getBudget=async(): Promise<budget[]>=>{
     }
     throw new Error("Something went wrong while fetching budget data")
 }
+
+export const upDateBudget=async(id:string,data:budget)=>{
+  try{
+    let res= await axios.patch(`${BASEURL}/expenseBudget/${id}.json`,data)
+    return res.data
+  }
+   catch(err){
+    if(err instanceof Error ){
+      errorToast(err.message)
+      throw new Error
+    }
+    }
+}
+export const deleteBudget=async(id:string)=>{
+  try{
+    let res= await axios.delete(`${BASEURL}/expenseBudget/${id}.json`)
+    return res.data
+  }
+   catch(err){
+    if(err instanceof Error ){
+      errorToast(err.message)
+      throw new Error
+    }
+    }
+}

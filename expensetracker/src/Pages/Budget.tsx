@@ -3,9 +3,12 @@ import type { budget } from "../Types/Budgettype";
 import { addBudget, getTransactions, getBudget } from "../Services/Api";
 import { errorToast, successToast } from "../Components/Toaster";
 import useFetch from "../Hooks/useFetch";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import Loader from "../Components/Loader";
 import type { AddTransaction } from "../Types/Addtransactiontype";
+import { BsCurrencyRupee } from "react-icons/bs";
+import { FiEdit3, FiTrash2 } from "react-icons/fi";
+import BudgetModal from "../Components/BudgetModal";
 
 const Budget = () => {
   let categoryList = [
@@ -40,6 +43,8 @@ const Budget = () => {
     loading: transLoading,
     error: transError,
   } = useFetch<AddTransaction[]>(getaddtransactions);
+  let [modalshow,setmodalShow]=useState(false)
+  let [selectedItem,setSelectedItem]=useState<budget | null>(null)
   let formSubmit = async (data: budget) => {
     let resData = await addBudget(data);
     console.log(resData);
@@ -63,6 +68,7 @@ const Budget = () => {
     return null;
   }
   return (
+    <>
     <div className="budget">
       <div className="max-w-6xl mx-auto space-y-8">
         <div>
@@ -184,7 +190,7 @@ const Budget = () => {
               budgetData.map((item) => {
                 const categorytransaction = transData?.filter((trans) => {
                   return (
-                    trans.category === item.category &&
+                    trans.category === item.category && trans.date.slice(0,7) === item.month &&
                     trans.transType === "Expense"
                   );
                 });
@@ -193,8 +199,10 @@ const Budget = () => {
                   categorytransaction?.reduce((sum, trans) => {
                     return sum + Number(trans.amount);
                   }, 0) ?? 0;
+                
+                const isOverBudget = spent > item.amount;
+                const remainingAmount = Math.max(item.amount - spent, 0);
 
-                const remainingAmount = item.amount - spent;
 
                 const percentageProgress =
                   item.amount > 0
@@ -204,7 +212,7 @@ const Budget = () => {
                 return (
                   <div
                     key={item.id}
-                    className="bg-white shadow-custom1 p-6 rounded-2xl hover:shadow-lg transition"
+                    className="bg-white shadow-custom1 p-6 rounded-2xl hover:shadow-lg transition space-y-2.5"
                   >
                     <div className="flex items-center justify-between mb-5">
                       <div>
@@ -221,25 +229,38 @@ const Budget = () => {
                         {item.category.charAt(0)}
                       </div>
                     </div>
-
-                    <div className="mb-5">
+                    <div className="flex items-center justify-between ">
+                      <div className="mb-5">
                       <p className="font-secondary text-xs text-gray-500">
-                        Budget Limit
+                        Budget 
                       </p>
-
-                      <p className="font-heading text-2xl font-bold text-indigo-500 mt-1">
-                        ₹{item.amount}
+                      <p className="font-heading text-2xl font-bold text-indigo-500 mt-1 inline-flex  items-center">
+                      <BsCurrencyRupee className="font-heading" />{item.amount}
                       </p>
                     </div>
 
+                    <div className="mb-5">
+                      <p className="font-secondary text-sm text-gray-500 text-center">Status</p>
+                      <span className={
+                          isOverBudget
+                            ? "text-red-500 font-semibold block text-[10px] mt-1 bg-red-50 text-center py-1 px-2 rounded-full"
+                            : "text-green-500 font-semibold block text-[10px] mt-1 bg-green-50 text-center py-1 px-2 rounded-full"
+                        }
+                      >
+                        {isOverBudget ? "Over Budget" : "Within Budget"}
+                      </span>
+                      </div>
+                    </div>
+                    
+                    
                     <div className="grid grid-cols-2 gap-3 mb-5">
                       <div className="bg-red-50 rounded-xl p-3">
                         <p className="font-secondary text-xs text-gray-500">
                           Spent
                         </p>
 
-                        <p className="font-secondary text-sm font-semibold text-red-500 mt-1">
-                          ₹{spent}
+                        <p className="font-secondary text-sm font-semibold text-red-500 mt-1 inline-flex  items-center">
+                        <BsCurrencyRupee />{spent}
                         </p>
                       </div>
 
@@ -248,8 +269,8 @@ const Budget = () => {
                           Remaining
                         </p>
 
-                        <p className="font-secondary text-sm font-semibold text-green-600 mt-1">
-                          ₹{remainingAmount}
+                        <p className="font-secondary text-sm font-semibold text-green-600 mt-1 inline-flex items-center">
+                        <BsCurrencyRupee />{remainingAmount}
                         </p>
                       </div>
                     </div>
@@ -272,6 +293,17 @@ const Budget = () => {
                         }}
                       />
                     </div>
+                  <div className="flex justify-end gap-3 mt-5 pt-4 border-t border-gray-100">
+                    <button className="flex items-center gap-1 text-sm text-indigo-500" onClick={()=>{setmodalShow(true),setSelectedItem(item)}} >
+                      <FiEdit3 />
+                      Edit
+                    </button>
+
+                    <button className="flex items-center gap-1 text-sm text-red-500">
+                      <FiTrash2 />
+                      Delete
+                    </button>
+                  </div>
                   </div>
                 );
               })
@@ -286,6 +318,11 @@ const Budget = () => {
         </div>
       </div>
     </div>
+    <BudgetModal show={modalshow} categoryList={categoryList} budgetdata={selectedItem} onClose={()=>{
+      setmodalShow(false),
+      setSelectedItem(null)
+    }}  />
+    </>
   );
 };
 
