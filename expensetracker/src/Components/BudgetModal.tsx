@@ -8,9 +8,10 @@ interface modalProp {
 show:boolean
 categoryList:string[]
 budgetdata:budget | null
+refetch:()=>void
 onClose:()=>void
 }
-const BudgetModal = ({show,categoryList,budgetdata,onClose}:modalProp) => {
+const BudgetModal = ({show,categoryList,budgetdata,onClose,refetch}:modalProp) => {
 let [editData,setEditData]=useState<budget >(budgetdata!)
  useEffect(()=>{
     if(budgetdata){
@@ -25,6 +26,7 @@ let [editData,setEditData]=useState<budget >(budgetdata!)
     await upDateBudget(id,editData)
     successToast("Edited Successfully")
     onClose()
+    refetch()
  }
 
  if (!show || !budgetdata|| !editData ) return ;

@@ -1,35 +1,29 @@
-import  { useEffect, useState } from 'react'
-import { errorToast } from '../Components/Toaster'
+import { useCallback, useEffect, useState } from "react";
+import { errorToast } from "../Components/Toaster";
 
+function useFetch<t>(fetchData: () => Promise<t>) {
+  let [data, setdata] = useState<t>();
+  let [loading, setloading] = useState<boolean>(false);
+  let [error, seterror] = useState<string>("");
 
-function useFetch<t>(fetchData:()=>Promise<t>){
-    let[data,setdata]=useState<t>()
-    let[loading,setloading]=useState<boolean>(false)
-    let [error,seterror]=useState<string>("")
-
-useEffect(()=>{
-
-    let fetch= async ()=>{
-        try{
-            setloading(true)
-            let resData= await fetchData()
-            setdata(resData)
-        }
-        catch(err){
-            if(err instanceof Error){
-                errorToast(err.message)
-               seterror(err.message)
-            }
-        }
-        finally{
-            setloading(false)
-        }
+  let fetch = useCallback(async () => {
+    try {
+      setloading(true);
+      let resData = await fetchData();
+      setdata(resData);
+    } catch (err) {
+      if (err instanceof Error) {
+        errorToast(err.message);
+        seterror(err.message);
+      }
+    } finally {
+      setloading(false);
     }
-    fetch()
-    
-},[fetchData])
-return {data,loading,error}
+  }, [fetchData]);
+  useEffect(() => {
+    fetch();
+  }, [fetch]);
+  return { data, loading, error, refetch:fetch  };
 }
 
-export default useFetch
-
+export default useFetch;

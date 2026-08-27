@@ -10,7 +10,7 @@ import { FiEdit2, FiTrash2 } from "react-icons/fi";
 import { FiSearch } from "react-icons/fi";
 
 const Transactions = () => {
-  let { data, loading, error } = useFetch<AddTransaction[]>(getTransactions);
+  let { data, loading, error,refetch } = useFetch<AddTransaction[]>(getTransactions);
   let [userSearch, setuserSearch] = useState<string>("");
   let [transType, setTransType] = useState("All");
 
@@ -21,6 +21,7 @@ const Transactions = () => {
 
   const handledelete = async (id: string) => {
     await deletedata(id);
+    refetch()
   };
 
   let filterData = data?.filter((item) => {
