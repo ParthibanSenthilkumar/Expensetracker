@@ -78,7 +78,11 @@ const Reports = () => {
   };
 
   if (loading) {
-    return <div className="flex items-center justify-center h-screen w-screen"><Loader /></div>;
+    return (
+      <div className="flex items-center justify-center h-screen w-screen">
+        <Loader />
+      </div>
+    );
   }
   if (error) {
     errorToast(error);
@@ -91,7 +95,7 @@ const Reports = () => {
         Transaction History
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-[350px_1fr]">
+      <div className="grid grid-cols-1 lg:grid-cols-[350px_1fr] gap-7 lg:gap-0">
         <ExpenseChart expenseChartData={expenseChartData} />
 
         <div className="shadow-custom1 rounded-md py-11 px-3">
@@ -114,7 +118,7 @@ const Reports = () => {
         totalIncome={totalIncome}
         totalExpense={totalExpense}
       />
-      <div className="flex items-center justify-between gap-4 mt-8 mb-3">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mt-8 mb-3">
         <input
           type="text"
           placeholder="Search transactions..."
@@ -123,10 +127,10 @@ const Reports = () => {
             setSearch(e.target.value);
             setCurrentPage(1);
           }}
-          className="border border-gray-200 rounded-lg px-4 py-2 text-sm outline-none focus:border-indigo-500"
+          className="border h-12 border-gray-200 rounded-lg px-4 py-2 text-sm outline-none focus:border-indigo-500"
         />
 
-        <div className="flex items-center gap-2 bg-gray-100 p-1.5 rounded-lg">
+        <div className="flex items-center gap-2 bg-gray-100 p-1.5 rounded-lg w-fit">
           {["All", "Income", "Expense"].map((type) => (
             <button
               key={type}
@@ -134,7 +138,7 @@ const Reports = () => {
                 setFilterTYpe(type);
                 setCurrentPage(1);
               }}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
+              className={`px-3 md:px-4 py-2 rounded-md text-xs md:text-sm font-medium transition-all ${
                 filterType === type
                   ? "bg-indigo-500 text-white shadow-sm"
                   : "text-gray-600 hover:bg-gray-200"

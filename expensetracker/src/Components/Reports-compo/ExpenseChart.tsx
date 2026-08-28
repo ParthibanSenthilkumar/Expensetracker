@@ -18,7 +18,7 @@ const ExpenseChart = ({ expenseChartData }: ChartProps) => {
 
   return (
     <>
-      <div className="w-full max-w-[320px] h-[320px] shadow-custom1 rounded-md bg-white p-2.5 border-none outline-none">
+      <div className="w-full lg:max-w-[320px] h-[320px] shadow-custom1 rounded-md bg-white p-2.5 border-none outline-none">
         <h3 className="section_title text-lg font-semibold text-[#6366f1] font-heading my-3 ml-1.5">
           Expense Breakdown
         </h3>

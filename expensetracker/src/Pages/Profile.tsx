@@ -17,7 +17,7 @@ const Profile = () => {
   }
   return (
     <>
-      <div className="shadow-custom1 p-7 rounded-md">
+      <div className="shadow-custom1 p-5 md:p-7 rounded-md">
         <div className="flex items-center gap-5 pb-6 border-b border-gray-200 mb-7">
           <div className="shrink-0">
             <img
@@ -30,7 +30,7 @@ const Profile = () => {
             <h3 className="text-2xl text-gray-800 font-heading font-semibold">
               My Profile
             </h3>
-            <p className="text-sm text-gray-400 mt-1">
+            <p className="text-xs md:text-sm text-gray-400 mt-1">
               View and manage your personal information
             </p>
           </div>
@@ -38,7 +38,7 @@ const Profile = () => {
         <div className="space-y-6">
           <div className="flex items-start gap-5">
             <div className="shrink-0">
-              <span className="w-14 h-14 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 text-xl">
+              <span className=" w-10 h-10 md:w-14 md:h-14 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 text-xl">
                 <FaRegUser />
               </span>
             </div>
@@ -60,7 +60,7 @@ const Profile = () => {
           </div>
           <div className="flex items-start gap-5">
             <div className="shrink-0">
-              <span className="w-14 h-14 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 text-xl">
+              <span className="w-10 h-10 md:w-14 md:h-14 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 text-xl">
                 <FiMail />
               </span>
             </div>
@@ -84,7 +84,7 @@ const Profile = () => {
           </div>
           <div className="flex items-start gap-5">
             <div className="shrink-0">
-              <span className="w-14 h-14 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 text-xl">
+              <span className="w-10 h-10 md:w-14 md:h-14 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 text-xl">
                 <FiPhone />
               </span>
             </div>

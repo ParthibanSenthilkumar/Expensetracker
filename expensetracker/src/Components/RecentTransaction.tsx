@@ -28,7 +28,7 @@ const RecentTransaction = ({ filtertype, setFiltertype }: FilterProp) => {
   }
   return (
     <div className="w-full rounded-md bg-white p-5 shadow-custom1">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-6">
+      <div className="flex flex-col justify-center a gap-4 lg:flex-row items-center lg:justify-between mb-6">
         <div>
           <h2 className="text-2xl font-bold text-indigo-500 font-heading">
             Recent Transactions
@@ -42,7 +42,7 @@ const RecentTransaction = ({ filtertype, setFiltertype }: FilterProp) => {
             <button
               key={type}
               onClick={() => setFiltertype(type)}
-              className={`px-4 py-2 text-sm font-medium font-heading  rounded-md transition-all duration-200
+              className={`px-2 lg:px-4 py-2 text-sm font-medium font-heading  rounded-md transition-all duration-200
                 ${
                   filtertype === type
                     ? "bg-indigo-500 text-white shadow-sm"
@@ -59,12 +59,12 @@ const RecentTransaction = ({ filtertype, setFiltertype }: FilterProp) => {
         <table className="w-full min-w-[700px] text-left">
           <thead>
             <tr className="border-b border-gray-100 text-sm text-gray-400">
-              <th className="px-4 py-3 font-medium font-heading">S.No</th>
-              <th className="px-4 py-3 font-medium font-heading">Amount</th>
-              <th className="px-4 py-3 font-medium font-heading">Category</th>
-              <th className="px-4 py-3 font-medium font-heading">Date</th>
-              <th className="px-4 py-3 font-medium font-heading">Type</th>
-              <th className="px-4 py-3 font-medium font-heading">Description</th>
+              <th className="px-2 lg:px-4 py-3 font-medium font-heading">S.No</th>
+              <th className="px-2 lg:px-4 py-3 font-medium font-heading">Amount</th>
+              <th className="px-2 lg:px-4 py-3 font-medium font-heading">Category</th>
+              <th className="px-2 lg:px-4 py-3 font-medium font-heading">Date</th>
+              <th className="px-2 lg:px-4 py-3 font-medium font-heading">Type</th>
+              <th className="px-2 lg:px-4 py-3 font-medium font-heading">Description</th>
             </tr>
           </thead>
 
@@ -75,12 +75,12 @@ const RecentTransaction = ({ filtertype, setFiltertype }: FilterProp) => {
                   key={transaction.id}
                   className="border-b border-gray-50 hover:bg-gray-50 transition-colors"
                 >
-                  <td className="px-4 py-4 text-sm text-gray-500 font-secondary">
+                  <td className="px-2 lg:px-4 py-4 text-sm text-gray-500 font-secondary">
                     {index + 1}
                   </td>
 
                   <td
-                    className={`px-4 py-4 font-semibold font-secondary ${
+                    className={`px-2 lg:px-4 py-4 font-semibold font-secondary ${
                       transaction.transType === "Income"
                         ? "text-green-500"
                         : "text-red-500"
@@ -91,17 +91,17 @@ const RecentTransaction = ({ filtertype, setFiltertype }: FilterProp) => {
                       : `-${transaction.amount}`}
                   </td>
 
-                  <td className="px-4 py-4">
+                  <td className="px-2 lg:px-4 py-4">
                     <span className="px-3 py-1 rounded-full text-indigo-600 text-xs font-bold font-secondary">
                       {transaction.category}
                     </span>
                   </td>
 
-                  <td className="px-4 py-4 text-sm text-gray-500 font-secondary">
+                  <td className="px-2 lg:px-4 py-4 text-sm text-gray-500 font-secondary">
                     {transaction.date}
                   </td>
 
-                  <td className="px-4 py-4">
+                  <td className="px-2 lg:px-4 py-4">
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-semibold font-secondary ${
                         transaction.transType === "Income"
@@ -113,7 +113,7 @@ const RecentTransaction = ({ filtertype, setFiltertype }: FilterProp) => {
                     </span>
                   </td>
 
-                  <td className="px-4 py-4 text-sm text-gray-500 max-w-[200px] truncate">
+                  <td className="px-2 lg:px-4 py-4 text-sm text-gray-500 max-w-[200px] truncate">
                     {transaction.description}
                   </td>
                 </tr>

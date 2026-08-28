@@ -12,7 +12,7 @@ const CategorySummary = ({
   totalExpense,
 }: CategoryProps) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 my-5">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 my-5">
       <div className="bg-white rounded-xl shadow-custom1 p-5">
         <div className="mb-5">
           <h3 className="text-lg font-semibold text-indigo-500 font-heading">

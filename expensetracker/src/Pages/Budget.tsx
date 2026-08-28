@@ -88,7 +88,7 @@ const Budget = () => {
               Budget Management
             </h1>
           </div>
-          <div className="bg-white shadow-custom1 p-6 md:p-8 rounded-2xl">
+          <div className="bg-white shadow-custom1 p-6 lg:p-8 rounded-2xl">
             <div className="mb-6">
               <h2 className="font-heading text-xl font-semibold text-gray-800">
                 Add New Budget
@@ -197,7 +197,7 @@ const Budget = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  gap-5">
               {budgetData && budgetData.length > 0 ? (
                 budgetData.map((item) => {
                   const categorytransaction = transData?.filter((trans) => {
