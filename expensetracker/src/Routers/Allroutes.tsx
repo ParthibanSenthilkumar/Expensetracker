@@ -1,20 +1,30 @@
+import { lazy, Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import Login from "../Pages/Login";
-import Register from "../Pages/Register";
+import Loader from "../Components/Loader";
 import Sidebar from "../Components/Sidebar";
-import Dashboard from "../Pages/Dashboard";
-import Transactions from "../Pages/Transactions";
-import Addtransactions from "../Pages/Addtransactions";
-import Reports from "../Pages/Reports";
-import Profile from "../Pages/Profile";
-import Transdetails from "../Pages/Transdetails";
-import EditProfile from "../Pages/EditProfile";
-import ChancePassword from "../Pages/ChancePassword";
 import ProtectRoutes from "../Hooks/ProtectRoutes";
-import Budget from "../Pages/Budget";
+
+const Login = lazy(() => import("../Pages/Login"));
+const Register = lazy(() => import("../Pages/Register"));
+
+const Dashboard = lazy(() => import("../Pages/Dashboard"));
+const Transactions = lazy(() => import("../Pages/Transactions"));
+const Addtransactions = lazy(() => import("../Pages/Addtransactions"));
+const Reports = lazy(() => import("../Pages/Reports"));
+const Profile = lazy(() => import("../Pages/Profile"));
+const Transdetails = lazy(() => import("../Pages/Transdetails"));
+const EditProfile = lazy(() => import("../Pages/EditProfile"));
+const ChancePassword = lazy(() => import("../Pages/ChancePassword"));
+const Budget = lazy(() => import("../Pages/Budget"));
+
 
 const Allroutes = () => {
   return (
+    <Suspense fallback={ 
+      <div className="flex items-center justify-center h-screen w-screen">
+          <Loader />
+        </div>
+    }>
     <Routes>
       <Route path="/" element={<Navigate to="/login" replace />} />
       <Route path="/login" element={<Login />} />
@@ -31,6 +41,7 @@ const Allroutes = () => {
         <Route path="budget" element={ <Budget /> } />
       </Route>
     </Routes>
+    </Suspense>
   );
 };
 
