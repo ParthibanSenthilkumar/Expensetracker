@@ -1,15 +1,13 @@
 import type React from "react";
-import useFetch from "../Hooks/useFetch";
-import { getTransactions } from "../Services/Api";
-import Loader from "./Loader";
-import { errorToast } from "./Toaster";
+import type { AddTransaction } from "../Types/Addtransactiontype";
 
 interface FilterProp {
+  data:AddTransaction[] | []
   filtertype: string;
   setFiltertype: React.Dispatch<React.SetStateAction<string>>;
 }
-const RecentTransaction = ({ filtertype, setFiltertype }: FilterProp) => {
-  const { data, loading, error } = useFetch(getTransactions);
+const RecentTransaction = ({ data, filtertype, setFiltertype }: FilterProp) => {
+
   const latestTrans = [...(data ?? [])]
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, 5);
@@ -20,12 +18,7 @@ const RecentTransaction = ({ filtertype, setFiltertype }: FilterProp) => {
   if (filtertype === "Expense") {
     filteredData = latestTrans.filter((item) => item.transType === "Expense");
   }
-  if (loading) {
-    return <div className="flex items-center justify-center h-screen w-screen"><Loader /></div>;
-  }
-  if (error) {
-    errorToast(error);
-  }
+
   return (
     <div className="w-full rounded-md bg-white p-5 shadow-custom1">
       <div className="flex flex-col justify-center a gap-4 lg:flex-row items-center lg:justify-between mb-6">

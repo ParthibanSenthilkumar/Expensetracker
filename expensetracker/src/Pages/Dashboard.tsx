@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Loader from "../Components/Loader";
 import SummaryCard from "../Components/Reports-compo/SummaryCard";
 import { errorToast } from "../Components/Toaster";
@@ -12,51 +12,51 @@ const Dashboard = () => {
   let { data, loading, error } = useFetch<AddTransaction[]>(getTransactions);
   let [filtertype, setFiltertype] = useState<string>("All");
 
- let expenseFilter = data?.filter((item) => item.transType === "Expense") ?? [];
+const expenseFilter = useMemo(() => {
+  return data?.filter(
+    (item) => item.transType === "Expense"
+  ) ?? [];
+}, [data]);
 
-  let totalIncome =
-    data
-      ?.filter((inc) => inc.transType === "Income")
-      .reduce((sum, value) => {
-        return sum + Number(value.amount);
-      }, 0) ?? 0;
+const totalIncome = useMemo(() => {
+  return data
+    ?.filter((item) => item.transType === "Income")
+    .reduce(
+      (sum, item) => sum + Number(item.amount),
+      0
+    ) ?? 0;
+}, [data]);
 
-  let totalExpense =
-    data
-      ?.filter((inc) => inc.transType === "Expense")
-      .reduce((sum, value) => {
-        return sum + Number(value.amount);
-      }, 0) ?? 0;
-
-  let totalBalance = (totalIncome || 0) - (totalExpense || 0);
-
-  let filteredData = data ?? [];
-  if (filtertype === "Income") {
-    filteredData = data?.filter((item) => item.transType === "Income") ?? [];
-  }
-  if (filtertype === "Expense") {
-     filteredData= expenseFilter
-  }
-  const categoriesExpense = expenseFilter?.reduce(
-    (sum, item) => {
-      sum[item.category] = (sum[item.category] || 0) + Number(item.amount);
-      return sum;
-    },
-    {} as Record<string, number>,
+const totalExpense = useMemo(() => {
+  return expenseFilter.reduce(
+    (sum, item) => sum + Number(item.amount),
+    0
   );
+}, [expenseFilter]);
 
-  let expenseChartData=Object.entries(categoriesExpense ?? {} ).map(([category,amount])=>({
-      Name:category,
-      value:amount
-  }),
-);
+const totalBalance = totalIncome - totalExpense;
+    
+  // const categoriesExpense = expenseFilter?.reduce(
+  //   (sum, item) => {
+  //     sum[item.category] = (sum[item.category] || 0) + Number(item.amount);
+  //     return sum;
+  //   },
+  //   {} as Record<string, number>,
+  // );
 
-
+//   let expenseChartData=Object.entries(categoriesExpense ?? {} ).map(([category,amount])=>({
+//       Name:category,
+//       value:amount
+//   }),
+// );
+ useEffect(()=>{
+    errorToast(error);
+ },[error])
+ 
   if (loading) {
     return <div className="flex items-center justify-center h-screen w-screen"><Loader /></div>
   }
   if (error) {
-    errorToast(error);
     return null;
   }
   return (
@@ -74,7 +74,7 @@ const Dashboard = () => {
         </div>
       </div> */}
       <div className="recent_trans mt-7">
-          <RecentTransaction filtertype={filtertype} setFiltertype={setFiltertype} />
+          <RecentTransaction data={data ?? [] } filtertype={filtertype} setFiltertype={setFiltertype} />
         </div>
     </>
   );

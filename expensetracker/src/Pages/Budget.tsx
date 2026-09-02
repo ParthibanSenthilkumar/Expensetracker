@@ -8,7 +8,7 @@ import {
 } from "../Services/Api";
 import { errorToast, successToast } from "../Components/Toaster";
 import useFetch from "../Hooks/useFetch";
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import Loader from "../Components/Loader";
 import type { AddTransaction } from "../Types/Addtransactiontype";
 import { BsCurrencyRupee } from "react-icons/bs";
@@ -42,7 +42,7 @@ const Budget = () => {
     data: budgetData,
     loading: budgetLoading,
     error: budgetError,
-    refetch:refetchBudget
+    refetch: refetchBudget,
   } = useFetch<budget[]>(getBudgetData);
   const {
     data: transData,
@@ -55,14 +55,25 @@ const Budget = () => {
     let resData = await addBudget(data);
     console.log(resData);
     reset();
-    refetchBudget()
+    refetchBudget();
     successToast("Budget Created Successfully");
   };
   const handleDelete = async (id: string) => {
     await deleteBudget(id);
-    refetchBudget()
+    refetchBudget();
     successToast("Budget Deleted Successfully");
   };
+
+  useEffect(() => {
+    if (budgetError) {
+      errorToast(budgetError);
+    }
+  }, [budgetError]);
+  useEffect(() => {
+    if (transError) {
+      errorToast(transError);
+    }
+  }, [transError]);
   if (budgetLoading || transLoading) {
     return (
       <div className="flex items-center justify-center h-screen w-screen">
@@ -72,11 +83,9 @@ const Budget = () => {
   }
 
   if (budgetError) {
-    errorToast(budgetError);
     return null;
   }
   if (transError) {
-    errorToast(transError);
     return null;
   }
   return (

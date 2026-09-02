@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import Loader from "../Components/Loader";
 import { errorToast } from "../Components/Toaster";
 import useFetch from "../Hooks/useFetch";
@@ -14,15 +14,25 @@ const Reports = () => {
   const { data, loading, error } = useFetch<AddTransaction[]>(getTransactions);
   const [filterType, setFilterTYpe] = useState("All");
   const [search, setSearch] = useState("");
-  const incomeFilter = data?.filter((item) => item.transType === "Income");
-  const expenseFilter = data?.filter((item) => item.transType === "Expense");
-  // console.log(expenseFilter, "expenseFilter");
-  const totalIncome =
-    incomeFilter?.reduce((sum, item) => sum + Number(item?.amount), 0) ?? 0;
-  // console.log(totalIncome, "totalExpense");
-  const totalExpense =
-    expenseFilter?.reduce((sum, item) => sum + Number(item?.amount), 0) ?? 0;
-  // console.log(totalExpense, "totalExpense");
+  const incomeFilter = useMemo(() => {
+    return data?.filter((item) => item.transType === "Income");
+  }, [data]);
+
+  const expenseFilter = useMemo(() => {
+    return data?.filter((item) => item.transType === "Expense");
+  }, [data]);
+
+  const totalIncome = useMemo(() => {
+    return (
+      incomeFilter?.reduce((sum, item) => sum + Number(item.amount), 0) ?? 0
+    );
+  }, [incomeFilter]);
+
+  const totalExpense = useMemo(() => {
+    return (
+      expenseFilter?.reduce((sum, item) => sum + Number(item.amount), 0) ?? 0
+    );
+  }, [expenseFilter]);
   const totalBalance = (totalIncome || 0) - (totalExpense || 0);
   // console.log(totalBalance, "totalBalance");
   const categoriesExpense = expenseFilter?.reduce(
@@ -45,7 +55,7 @@ const Reports = () => {
     },
     {} as Record<string, number>,
   );
-  console.log(categoriesIncome);
+
   let filteredData = data ?? [];
   if (filterType === "Income") {
     filteredData = incomeFilter ?? [];
@@ -62,21 +72,32 @@ const Reports = () => {
   const lastIndex = currentPage * pageCount;
   const firstIndex = lastIndex - pageCount;
   const currentList = filteredData.slice(firstIndex, lastIndex);
-  let page = [];
-  for (let i = 1; i <= totalPage; i++) {
-    page.push(i);
-  }
-  let handlePrvious = () => {
+  const page = useMemo(() => {
+    const pages: number[] = [];
+
+    for (let i = 1; i <= totalPage; i++) {
+      pages.push(i);
+    }
+
+    return pages;
+  }, [totalPage]);
+
+  const handlePrvious = useCallback(() => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
-  };
-  let handleNext = () => {
+  }, [currentPage]);
+
+  const handleNext = useCallback(() => {
     if (currentPage < totalPage) {
       setCurrentPage(currentPage + 1);
     }
-  };
-
+  }, [currentPage, totalPage]);
+    useEffect(() => {
+    if (error) {
+      errorToast(error);
+    }
+  }, [error]);
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen w-screen">
@@ -85,7 +106,6 @@ const Reports = () => {
     );
   }
   if (error) {
-    errorToast(error);
     return null;
   }
 
