@@ -107,13 +107,14 @@ const Addtransactions = () => {
         </div>
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block mb-2 text-sm font-medium font-secondary   text-gray-700">
+            <label htmlFor="Amount" className="block mb-2 text-sm font-medium font-secondary   text-gray-700">
               Amount
             </label>
 
             <input
               type="text"
               name="amount"
+              id="Amount"
               value={transData.amount}
               onChange={handleChance}
               placeholder="Enter Amount"
@@ -121,13 +122,14 @@ const Addtransactions = () => {
             />
           </div>
           <div>
-            <label className="block mb-2 text-sm font-medium font-secondary text-gray-700">
+            <label htmlFor="Category" className="block mb-2 text-sm font-medium font-secondary text-gray-700">
               Category
             </label>
 
             <select
               name="category"
               value={transData.category}
+              id="Category"
               onChange={handleChance}
               className="w-full h-12 border border-gray-300 px-4 bg-gray-50 text-sm text-gray-600 rounded-lg outline-none focus:ring-2 focus:ring-indigo-300"
             >
@@ -141,11 +143,12 @@ const Addtransactions = () => {
             </select>
           </div>
           <div>
-            <label className="block mb-2 text-sm font-medium font-secondary text-gray-700">
+            <label htmlFor="Description" className="block mb-2 text-sm font-medium font-secondary text-gray-700">
               Description
             </label>
 
             <textarea
+              id="Description"
               name="description"
               value={transData.description}
               onChange={handleChance}
@@ -155,11 +158,12 @@ const Addtransactions = () => {
             />
           </div>
           <div>
-            <label className="block mb-2 text-sm font-medium font-secondary text-gray-700">Date</label>
+            <label htmlFor="Date" className="block mb-2 text-sm font-medium font-secondary text-gray-700">Date</label>
 
             <input
               type="date"
               name="date"
+              id="Date"
               value={transData.date}
               onChange={handleChance}
               className="w-full h-12 border border-gray-300 rounded-lg px-4 py-2 text-sm text-gray-600 font-secondary bg-gray-50  outline-none focus:ring-2 focus:ring-indigo-300"
