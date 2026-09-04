@@ -45,17 +45,17 @@ const Sidebar = () => {
             </span>
             Dashboard
           </Link>
-          <Link to="transactions" className="nav_link" onClick={handleClose}>
-            <span>
-              <AiOutlineTransaction />
-            </span>
-            Transactions
-          </Link>
           <Link to="addTransaction" className="nav_link" onClick={handleClose}>
             <span>
               <GrTransaction />
             </span>
             AddTransaction
+          </Link>
+          <Link to="transactions" className="nav_link" onClick={handleClose}>
+            <span>
+              <AiOutlineTransaction />
+            </span>
+            Transactions
           </Link>
           <Link to="reports" className="nav_link" onClick={handleClose}>
             <span>
@@ -63,17 +63,17 @@ const Sidebar = () => {
             </span>
             Reports
           </Link>
-          <Link to="profile" className="nav_link" onClick={handleClose}>
-            <span>
-              <CgProfile />
-            </span>
-            Profile
-          </Link>
           <Link to="budget" className="nav_link" onClick={handleClose}>
             <span>
               <MdAccountBalanceWallet />
             </span>
             Budget
+          </Link>
+          <Link to="profile" className="nav_link" onClick={handleClose}>
+            <span>
+              <CgProfile />
+            </span>
+            Profile
           </Link>
           <button className="nav_link" onClick={() => handleDelete(navigate)}>
             <span>
@@ -98,7 +98,12 @@ const Sidebar = () => {
                 <IoNotifications />
               </span>
               <span className="flex items-center gap-2 text-xl">
-                 <span><FaUser size={1} className="shrink-0 h-9 w-9 flex items-center justify-center p-2  bg-indigo-50 text-indigo-600 rounded-lg"  /></span> 
+                <span>
+                  <FaUser
+                    size={1}
+                    className="shrink-0 h-9 w-9 flex items-center justify-center p-2  bg-indigo-50 text-indigo-600 rounded-lg"
+                  />
+                </span>
                 <h3 className="text-xs sm:text-sm md:text-base font-semibold text-indigo-600 mt-1 capitalize truncate max-w-[100px] sm:max-w-none">
                   {userData?.fullName ?? ""}
                   <span className="font-medium text-[10px] sm:text-xs text-gray-400 block leading-3">
