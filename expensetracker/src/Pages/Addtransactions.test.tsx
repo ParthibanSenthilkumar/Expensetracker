@@ -1,4 +1,10 @@
-import {fireEvent,render,screen,cleanup,waitFor,} from "@testing-library/react";
+import {
+  fireEvent,
+  render,
+  screen,
+  cleanup,
+  waitFor,
+} from "@testing-library/react";
 import { describe, it, expect, afterEach, vi } from "vitest";
 import Addtransactions from "./Addtransactions";
 import { errorToast, successToast } from "../Components/Toaster";
@@ -127,65 +133,59 @@ describe("Addtransactions", () => {
     render(<Addtransactions />);
 
     fireEvent.change(screen.getByLabelText("Amount"), {
-      target: {value: "5000",},
+      target: { value: "5000" },
     });
 
     fireEvent.change(screen.getByLabelText("Category"), {
-      target: {value: "Food",},
+      target: { value: "Food" },
     });
 
     fireEvent.change(screen.getByLabelText("Description"), {
-      target: {value: "Lunch",},
+      target: { value: "Lunch" },
     });
 
     fireEvent.change(screen.getByLabelText("Date"), {
-      target: {value: "2026-09-03",},
+      target: { value: "2026-09-03" },
     });
 
-    fireEvent.click(
-      screen.getByRole("button", {name: "Add Transaction", }),
-    );
+    fireEvent.click(screen.getByRole("button", { name: "Add Transaction" }));
 
     await waitFor(() => {
       expect(screen.getByLabelText("Amount")).toHaveValue("");
     });
   });
 
-    it("should show error toast when API fails", async () => {
-        vi.mocked(Addtransaction).mockRejectedValueOnce(
-            new Error("Server Error")
-        );
+  it("should show error toast when API fails", async () => {
+    vi.mocked(Addtransaction).mockRejectedValueOnce(new Error("Server Error"));
 
     render(<Addtransactions />);
 
     fireEvent.change(screen.getByLabelText("Amount"), {
-        target: { value: "5000" },
+      target: { value: "5000" },
     });
 
     fireEvent.change(screen.getByLabelText("Category"), {
-        target: { value: "Food" },
+      target: { value: "Food" },
     });
 
     fireEvent.change(screen.getByLabelText("Description"), {
-        target: { value: "Lunch" },
+      target: { value: "Lunch" },
     });
 
     fireEvent.change(screen.getByLabelText("Date"), {
-        target: { value: "2026-09-03" },
+      target: { value: "2026-09-03" },
     });
 
     fireEvent.click(
-        screen.getByRole("button", {
+      screen.getByRole("button", {
         name: "Add Transaction",
-        })
+      }),
     );
 
     await waitFor(() => {
-        expect(errorToast).toHaveBeenCalledWith("Server Error");
+      expect(errorToast).toHaveBeenCalledWith("Server Error");
     });
-    });
-
-
+  });
 });
 
 afterEach(() => {

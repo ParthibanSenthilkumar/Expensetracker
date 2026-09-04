@@ -12,30 +12,24 @@ const Dashboard = () => {
   let { data, loading, error } = useFetch<AddTransaction[]>(getTransactions);
   let [filtertype, setFiltertype] = useState<string>("All");
 
-const expenseFilter = useMemo(() => {
-  return data?.filter(
-    (item) => item.transType === "Expense"
-  ) ?? [];
-}, [data]);
+  const expenseFilter = useMemo(() => {
+    return data?.filter((item) => item.transType === "Expense") ?? [];
+  }, [data]);
 
-const totalIncome = useMemo(() => {
-  return data
-    ?.filter((item) => item.transType === "Income")
-    .reduce(
-      (sum, item) => sum + Number(item.amount),
-      0
-    ) ?? 0;
-}, [data]);
+  const totalIncome = useMemo(() => {
+    return (
+      data
+        ?.filter((item) => item.transType === "Income")
+        .reduce((sum, item) => sum + Number(item.amount), 0) ?? 0
+    );
+  }, [data]);
 
-const totalExpense = useMemo(() => {
-  return expenseFilter.reduce(
-    (sum, item) => sum + Number(item.amount),
-    0
-  );
-}, [expenseFilter]);
+  const totalExpense = useMemo(() => {
+    return expenseFilter.reduce((sum, item) => sum + Number(item.amount), 0);
+  }, [expenseFilter]);
 
-const totalBalance = totalIncome - totalExpense;
-    
+  const totalBalance = totalIncome - totalExpense;
+
   // const categoriesExpense = expenseFilter?.reduce(
   //   (sum, item) => {
   //     sum[item.category] = (sum[item.category] || 0) + Number(item.amount);
@@ -44,17 +38,23 @@ const totalBalance = totalIncome - totalExpense;
   //   {} as Record<string, number>,
   // );
 
-//   let expenseChartData=Object.entries(categoriesExpense ?? {} ).map(([category,amount])=>({
-//       Name:category,
-//       value:amount
-//   }),
-// );
- useEffect(()=>{
-    errorToast(error);
- },[error])
- 
+  //   let expenseChartData=Object.entries(categoriesExpense ?? {} ).map(([category,amount])=>({
+  //       Name:category,
+  //       value:amount
+  //   }),
+  // );
+  useEffect(() => {
+    if (error) {
+      errorToast(error);
+    }
+  }, [error]);
+
   if (loading) {
-    return <div className="flex items-center justify-center h-screen w-screen"><Loader /></div>
+    return (
+      <div className="flex items-center justify-center h-screen w-screen">
+        <Loader />
+      </div>
+    );
   }
   if (error) {
     return null;
@@ -74,8 +74,12 @@ const totalBalance = totalIncome - totalExpense;
         </div>
       </div> */}
       <div className="recent_trans mt-7">
-          <RecentTransaction data={data ?? [] } filtertype={filtertype} setFiltertype={setFiltertype} />
-        </div>
+        <RecentTransaction
+          data={data ?? []}
+          filtertype={filtertype}
+          setFiltertype={setFiltertype}
+        />
+      </div>
     </>
   );
 };

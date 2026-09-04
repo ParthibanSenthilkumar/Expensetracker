@@ -93,7 +93,7 @@ const Reports = () => {
       setCurrentPage(currentPage + 1);
     }
   }, [currentPage, totalPage]);
-    useEffect(() => {
+  useEffect(() => {
     if (error) {
       errorToast(error);
     }

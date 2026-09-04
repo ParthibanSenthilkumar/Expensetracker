@@ -16,7 +16,9 @@ const SummaryCard = ({
       <div className="flex flex-wrap items-center justify-between gap-2.5">
         <div className="card p-5 flex items-center justify-between shadow-custom1 rounded-lg flex-1 min-w-[200px]">
           <div className="card-info ">
-            <h3 className="text-[14px] text-gray-400 font-secondary">Total Balance</h3>
+            <h3 className="text-[14px] text-gray-400 font-secondary">
+              Total Balance
+            </h3>
             <span className="text-3xl font-bold text-indigo-500 mt-2 font-heading block">
               {totalBalance}
             </span>
@@ -25,16 +27,20 @@ const SummaryCard = ({
         </div>
         <div className="card p-5 flex items-center justify-between shadow-custom1 rounded-lg flex-1 min-w-[200px]">
           <div className="">
-            <h3 className="text-[14px] text-gray-400 font-secondary">Total Income</h3>
+            <h3 className="text-[14px] text-gray-400 font-secondary">
+              Total Income
+            </h3>
             <span className="text-2xl font-bold text-green-500  mt-2 font-heading block">
               {totalIncome}
             </span>
           </div>
-          <FaArrowTrendUp className="text-base text-green-500 h-12 w-12 flex items-center justify-between bg-green-100 rounded-md p-3"  />
+          <FaArrowTrendUp className="text-base text-green-500 h-12 w-12 flex items-center justify-between bg-green-100 rounded-md p-3" />
         </div>
         <div className="card p-5 flex items-center justify-between shadow-custom1 rounded-lg flex-1 min-w-[200px]">
           <div className="">
-            <h3 className="text-[14px] text-gray-400 font-secondary">Total Expense</h3>
+            <h3 className="text-[14px] text-gray-400 font-secondary">
+              Total Expense
+            </h3>
             <span className="text-2xl font-bold text-red-500  mt-2 font-heading block">
               {totalExpense}
             </span>

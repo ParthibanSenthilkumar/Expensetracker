@@ -57,19 +57,25 @@ const Transdetails = () => {
     successToast("Edited data Successfully");
     navigate("/dashboard/transactions");
   };
- useEffect(()=>{
+  useEffect(() => {
     errorToast(error);
- },[error])
- 
+  }, [error]);
+
   if (loading) {
-    return <div className="flex items-center justify-center h-screen w-screen"><Loader /></div>;
+    return (
+      <div className="flex items-center justify-center h-screen w-screen">
+        <Loader />
+      </div>
+    );
   }
   if (error) {
     return null;
   }
   return (
     <div className="shadow-custom1 max-w-lg mx-auto bg-white rounded-xl p-8">
-      <h2 className="text-2xl font-bold text-center font-heading text-indigo-500  mb-8">Edit Transaction</h2>
+      <h2 className="text-2xl font-bold text-center font-heading text-indigo-500  mb-8">
+        Edit Transaction
+      </h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-6">
           <p className="font-semibold text-gray-700 mb-3">Transaction Type</p>

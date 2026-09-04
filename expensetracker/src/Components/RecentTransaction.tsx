@@ -2,12 +2,11 @@ import type React from "react";
 import type { AddTransaction } from "../Types/Addtransactiontype";
 
 interface FilterProp {
-  data:AddTransaction[] | []
+  data: AddTransaction[] | [];
   filtertype: string;
   setFiltertype: React.Dispatch<React.SetStateAction<string>>;
 }
 const RecentTransaction = ({ data, filtertype, setFiltertype }: FilterProp) => {
-
   const latestTrans = [...(data ?? [])]
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, 5);
@@ -52,12 +51,24 @@ const RecentTransaction = ({ data, filtertype, setFiltertype }: FilterProp) => {
         <table className="w-full min-w-[700px] text-left">
           <thead>
             <tr className="border-b border-gray-100 text-sm text-gray-400">
-              <th className="px-2 lg:px-4 py-3 font-medium font-heading">S.No</th>
-              <th className="px-2 lg:px-4 py-3 font-medium font-heading">Amount</th>
-              <th className="px-2 lg:px-4 py-3 font-medium font-heading">Category</th>
-              <th className="px-2 lg:px-4 py-3 font-medium font-heading">Date</th>
-              <th className="px-2 lg:px-4 py-3 font-medium font-heading">Type</th>
-              <th className="px-2 lg:px-4 py-3 font-medium font-heading">Description</th>
+              <th className="px-2 lg:px-4 py-3 font-medium font-heading">
+                S.No
+              </th>
+              <th className="px-2 lg:px-4 py-3 font-medium font-heading">
+                Amount
+              </th>
+              <th className="px-2 lg:px-4 py-3 font-medium font-heading">
+                Category
+              </th>
+              <th className="px-2 lg:px-4 py-3 font-medium font-heading">
+                Date
+              </th>
+              <th className="px-2 lg:px-4 py-3 font-medium font-heading">
+                Type
+              </th>
+              <th className="px-2 lg:px-4 py-3 font-medium font-heading">
+                Description
+              </th>
             </tr>
           </thead>
 

@@ -23,25 +23,25 @@ const ExpenseChart = ({ expenseChartData }: ChartProps) => {
           Expense Breakdown
         </h3>
         <div className="h-[245px] w-full">
-        <ResponsiveContainer width="100%" height={"100%"}>
-          <PieChart>
-            <Pie
-              data={expenseChartData}
-              dataKey="value"
-              nameKey="Name"
-              cx="50%"
-              cy="50%"
-              outerRadius={80}
-              label
-            >
-              {expenseChartData.map((item, index) => (
-                <Cell key={item.Name} fill={COLORS[index % COLORS.length]} />
-              ))}
-            </Pie>
-            <Tooltip />
-            <Legend />
-          </PieChart>
-        </ResponsiveContainer>
+          <ResponsiveContainer width="100%" height={"100%"}>
+            <PieChart>
+              <Pie
+                data={expenseChartData}
+                dataKey="value"
+                nameKey="Name"
+                cx="50%"
+                cy="50%"
+                outerRadius={80}
+                label
+              >
+                {expenseChartData.map((item, index) => (
+                  <Cell key={item.Name} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+              <Tooltip />
+              <Legend />
+            </PieChart>
+          </ResponsiveContainer>
         </div>
       </div>
     </>

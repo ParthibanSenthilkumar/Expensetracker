@@ -107,7 +107,10 @@ const Addtransactions = () => {
         </div>
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label htmlFor="Amount" className="block mb-2 text-sm font-medium font-secondary   text-gray-700">
+            <label
+              htmlFor="Amount"
+              className="block mb-2 text-sm font-medium font-secondary   text-gray-700"
+            >
               Amount
             </label>
 
@@ -122,7 +125,10 @@ const Addtransactions = () => {
             />
           </div>
           <div>
-            <label htmlFor="Category" className="block mb-2 text-sm font-medium font-secondary text-gray-700">
+            <label
+              htmlFor="Category"
+              className="block mb-2 text-sm font-medium font-secondary text-gray-700"
+            >
               Category
             </label>
 
@@ -143,7 +149,10 @@ const Addtransactions = () => {
             </select>
           </div>
           <div>
-            <label htmlFor="Description" className="block mb-2 text-sm font-medium font-secondary text-gray-700">
+            <label
+              htmlFor="Description"
+              className="block mb-2 text-sm font-medium font-secondary text-gray-700"
+            >
               Description
             </label>
 
@@ -158,7 +167,12 @@ const Addtransactions = () => {
             />
           </div>
           <div>
-            <label htmlFor="Date" className="block mb-2 text-sm font-medium font-secondary text-gray-700">Date</label>
+            <label
+              htmlFor="Date"
+              className="block mb-2 text-sm font-medium font-secondary text-gray-700"
+            >
+              Date
+            </label>
 
             <input
               type="date"

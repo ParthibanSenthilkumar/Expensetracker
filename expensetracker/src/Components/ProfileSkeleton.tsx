@@ -1,7 +1,6 @@
 const ProfileSkeleton = () => {
   return (
     <div className="profie-container">
-
       <div className="form-item">
         <div className="h-4 w-20 bg-gray-200 rounded animate-pulse mb-2"></div>
 
@@ -25,7 +24,6 @@ const ProfileSkeleton = () => {
         <div className="h-10 w-32 bg-gray-200 rounded animate-pulse"></div>
         <div className="h-10 w-20 bg-gray-200 rounded animate-pulse"></div>
       </div>
-
     </div>
   );
 };

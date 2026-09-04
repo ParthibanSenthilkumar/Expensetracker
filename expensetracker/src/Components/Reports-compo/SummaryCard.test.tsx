@@ -9,7 +9,7 @@ describe("SummaryCard", () => {
         totalBalance={10000}
         totalIncome={15000}
         totalExpense={5000}
-      />
+      />,
     );
 
     expect(screen.getByText("Total Balance")).toBeInTheDocument();
