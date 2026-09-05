@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams,Link } from "react-router-dom";
 import useFetch from "../Hooks/useFetch";
 import { Editdata, getTransDetails } from "../Services/Api";
 import Loader from "../Components/Loader";
@@ -6,6 +6,7 @@ import { errorToast, successToast } from "../Components/Toaster";
 import type { AddTransaction } from "../Types/Addtransactiontype";
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { IoMdArrowBack } from "react-icons/io";
 
 const categoryList = {
   Income: ["Salary", "Business", "Freelancing", "Investment", "Bonus"],
@@ -58,7 +59,9 @@ const Transdetails = () => {
     navigate("/dashboard/transactions");
   };
   useEffect(() => {
-    errorToast(error);
+    if (error) {
+      errorToast(error);
+    }
   }, [error]);
 
   if (loading) {
@@ -73,10 +76,11 @@ const Transdetails = () => {
   }
   return (
     <div className="shadow-custom1 max-w-lg mx-auto bg-white rounded-xl p-8">
-      <h2 className="text-2xl font-bold text-center font-heading text-indigo-500  mb-8">
+      <h2 className="text-2xl font-bold flex items-center justify-between  font-heading text-indigo-500  mb-8">
         Edit Transaction
+        <Link to="/dashboard/transactions" className="text-sm underline flex items-center gap-1.5" > <IoMdArrowBack size={16} />  Back </Link>
       </h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
         <div className="mb-6">
           <p className="font-semibold text-gray-700 mb-3">Transaction Type</p>
 
@@ -108,7 +112,7 @@ const Transdetails = () => {
 
         <div className="form-item mb-2.5">
           <label
-            className="block mb-2 font-medium text-gray-700 font-secondary"
+            className="block mb-2 text-sm font-medium font-secondary   text-gray-700"
             htmlFor="amount"
           >
             Amount
@@ -117,7 +121,7 @@ const Transdetails = () => {
           <input
             type="text"
             id="amount"
-            className="w-full border text-sm font-medium font-secondary text-gray-500 border-gray-300"
+            className="w-full h-12 bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 text-sm  font-secondary text-gray-600 outline-none focus:ring-2 focus:ring-indigo-300"
             placeholder="Enter the amount"
             {...register("amount", {
               required: "Enter the Amount",
@@ -133,14 +137,14 @@ const Transdetails = () => {
         <div className="form-item mb-2.5">
           <label
             htmlFor="category"
-            className="block mb-2 font-medium text-gray-700"
+            className="block mb-2 text-sm font-medium font-secondary   text-gray-700"
           >
             Category
           </label>
 
           <select
             id="category"
-            className="w-full  text-sm  font-secondary  px-3 py-2 text-gray-500 border rounded-md border-gray-300"
+            className="w-full h-12 bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 text-sm  font-secondary text-gray-600 outline-none focus:ring-2 focus:ring-indigo-300"
             {...register("category", {
               required: "Select the category",
             })}
@@ -167,13 +171,13 @@ const Transdetails = () => {
         <div className="form-item mb-2.5">
           <label
             htmlFor="description"
-            className="block mb-2 font-medium text-gray-700"
+            className="block mb-2 text-sm font-medium font-secondary   text-gray-700"
           >
             Description
           </label>
           <textarea
             id="description"
-            className="w-full border border-gray-300 text-sm  font-secondary text-gray-500 rounded-md px-4 py-2 resize-none outline-none"
+            className="w-full h-20 bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 text-sm  font-secondary text-gray-600 outline-none focus:ring-2 focus:ring-indigo-300"
             placeholder="Enter the message"
             {...register("description", {
               required: "Enter your message",
@@ -189,14 +193,14 @@ const Transdetails = () => {
         <div className="form-item mb-2.5">
           <label
             htmlFor="date"
-            className="block mb-2 font-medium text-gray-700"
+            className="block mb-2 text-sm font-medium font-secondary   text-gray-700"
           >
             Date
           </label>
           <input
             type="date"
             id="date"
-            className="text-sm  font-secondary text-gray-500 border border-gray-300 rounded-md "
+            className="w-full h-12 bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 text-sm  font-secondary text-gray-600 outline-none focus:ring-2 focus:ring-indigo-300"
             {...register("date", {
               required: "Select the date",
             })}
