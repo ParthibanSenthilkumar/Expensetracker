@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Loader from "../Components/Loader";
 import Sidebar from "../Components/Sidebar";
 import ProtectRoutes from "../Hooks/ProtectRoutes";
+import NotFound from "../Pages/NotFound";
 
 const Login = lazy(() => import("../Pages/Login"));
 const Register = lazy(() => import("../Pages/Register"));
@@ -40,6 +41,7 @@ const Allroutes = () => {
         <Route path="profile/chancepassword" element={<ChancePassword />} />
         <Route path="budget" element={ <Budget /> } />
       </Route>
+      <Route path="*" element={<NotFound /> } />
     </Routes>
     </Suspense>
   );

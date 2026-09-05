@@ -34,10 +34,7 @@ const Sidebar = () => {
             to=""
             className="text-xl font-bold py-3  mb-3 block text-[#6366f1] inline-flex items-center gap-2.5  "
           >
-            <span className="bg-violet-300 p-2 rounded-md">
-              <FaWallet className="text-white text-base" />
-            </span>
-            Expense Tracker
+           <img src="../assets/images/logo.png" alt="logo" className="" />
           </Link>
           <Link to="" className="nav_link" onClick={handleClose}>
             <span>

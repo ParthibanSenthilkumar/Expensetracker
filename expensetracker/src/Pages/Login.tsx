@@ -6,6 +6,7 @@ import { errorToast, successToast } from "../Components/Toaster";
 import { useState } from "react";
 import Loader from "../Components/Loader";
 import { FaStarOfLife } from "react-icons/fa";
+import favicon from "/assets/images/favicon.png"
 
 interface LoginValues {
   email: string;
@@ -64,10 +65,18 @@ const Login = () => {
           <div className="absolute top-1/3 right-10 w-40 h-40 rounded-full bg-white/5"></div>
 
           <div className="relative z-10 text-white max-w-md">
-            <h1 className="text-4xl font-bold mb-4 leading-tight">
-              Expense Tracker
-            </h1>
-            <p className="text-lg text-white/90 mb-8 leading-relaxed">
+          <div className="flex items-center gap-3 mb-8">
+          <img
+            src={favicon}  
+            alt="FinPulse Icon"
+            className="h-20 w-auto"
+          />
+          <div>
+            <h1 className="text-2xl font-bold text-white leading-none font-heading">FinPulse</h1>
+            <p className="text-sm text-white/80 mt-1 font-secondary">Personal Finance Management</p>
+          </div>
+          </div>
+            <p className="text-sm font-secondary text-white/90 mb-8 leading-relaxed">
               Take control of your finances. Track expenses, manage budgets, and
               gain clear insights into your spending — all in one place.
             </p>
@@ -77,7 +86,7 @@ const Login = () => {
                 <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-sm font-bold">
                   <FaStarOfLife />
                 </div>
-                <span className="text-white/90 text-sm font-medium">
+                <span className="text-white/90 text-sm font-medium font-secondary">
                   Simple & intuitive interface
                 </span>
               </div>
@@ -85,7 +94,7 @@ const Login = () => {
                 <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-sm font-bold">
                   <FaStarOfLife />
                 </div>
-                <span className="text-white/90 text-sm font-medium">
+                <span className="text-white/90 text-sm font-medium font-secondary">
                   Real-time expense tracking
                 </span>
               </div>
@@ -93,7 +102,7 @@ const Login = () => {
                 <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-sm font-bold">
                   <FaStarOfLife />
                 </div>
-                <span className="text-white/90 text-sm font-medium">
+                <span className="text-white/90 text-sm font-medium font-secondary">
                   Secure & private
                 </span>
               </div>
@@ -107,7 +116,7 @@ const Login = () => {
             <div className="mb-8">
               <h2 className="section-title mb-2 text-[#393939]">Login</h2>
               <p className="text-sm font-medium text-gray-500">
-                Welcome to Expense Tracker
+                Welcome to Finpulse
               </p>
             </div>
 
