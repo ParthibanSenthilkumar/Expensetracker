@@ -4,7 +4,6 @@ import { AiOutlineTransaction } from "react-icons/ai";
 import { GrTransaction } from "react-icons/gr";
 import { TbReport } from "react-icons/tb";
 import { CgProfile } from "react-icons/cg";
-import { FaWallet } from "react-icons/fa";
 import { IoNotifications } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
 import { handleDelete } from "../Pages/Logout";
